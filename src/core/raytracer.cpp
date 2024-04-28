@@ -5,7 +5,7 @@
 ** raytracer.cpp
 */
 
-#include "core/raytracer.hpp"
+#include "raytracer.hpp"
 
 Raytracer::Raytracer(char *file)
 {

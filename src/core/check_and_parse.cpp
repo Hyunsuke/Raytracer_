@@ -5,7 +5,7 @@
 ** check_and_parse.cpp
 */
 
-#include "core/raytracer.hpp"
+#include "raytracer.hpp"
 
 int parse(std::string scene_file)
 {
