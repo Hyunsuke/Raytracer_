@@ -5,9 +5,10 @@
 ## Makefile
 ##
 
-SRC_ALL = src/main.cpp 				\
-		  src/core/raytracer.cpp 		\
-		  src/core/check_and_parse.cpp 	\
+SRCDIR = src
+
+SRC_ALL = $(wildcard $(SRCDIR)/*.cpp) $(wildcard $(SRCDIR)/*/*.cpp) $(wildcard $(SRCDIR)/*/*/*.cpp)
+SRC_OBJ = $(SRC_ALL:.cpp=.o)
 
 SfmlS = -lsfml-graphics -lsfml-window -lsfml-system
 
@@ -17,15 +18,13 @@ CC = g++ -g
 
 NAME = raytracer
 
-OBJ = $(SRC_ALL:.cpp=.o)
-
-$(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(CPPFLAGS) $(SfmlS)
+$(NAME): $(SRC_OBJ)
+	$(CC) -o $@ $^ $(CPPFLAGS) $(SfmlS)
 
 all: $(NAME)
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(SRCDIR)/*.o
 
 fclean: clean
 	rm -f $(NAME)
@@ -33,3 +32,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+

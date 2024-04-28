@@ -90,7 +90,7 @@ check_and_parse::check_and_parse(int ac, char **av)
         print_usage();
         exit(0);
     }
-    if (parse(av[1]) == 1) {
-        throw RaytracerException("Error while parsing the scene file", "check_and_parse");
-    }
+    // if (parse(av[1]) == 1) {
+    //     throw RaytracerException("Error while parsing the scene file", "check_and_parse");
+    // }
 }
