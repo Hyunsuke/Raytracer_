@@ -6,12 +6,12 @@
 ##
 
 SRC_ALL = src/main.cpp 				\
-		  src/raytracer.cpp 		\
-		  src/parse/check_and_parse.cpp 	\
+		  src/core/raytracer.cpp 		\
+		  src/core/check_and_parse.cpp 	\
 
 SfmlS = -lsfml-graphics -lsfml-window -lsfml-system
 
-CPPFLAGS = -W -Wall -Wextra -Iinclude
+CPPFLAGS = -W -Wall -Wextra -Iinclude -lconfig++
 
 CC = g++ -g
 

@@ -14,6 +14,8 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <iostream>
+#include <libconfig.h++>
+#include <string>
 
 #include "raytracerException.hpp"
 #include "check_and_parse.hpp"

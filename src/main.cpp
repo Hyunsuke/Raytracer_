@@ -5,8 +5,8 @@
 ** main.cpp
 */
 
-#include "raytracer.hpp"
-#include "check_and_parse.hpp"
+#include "core/raytracer.hpp"
+#include "core/check_and_parse.hpp"
 
 int main(int ac, char **av)
 {
