@@ -19,6 +19,7 @@ public:
     Point(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f);
 
     friend Point operator+(const Point& p, const Vector& v);
+    Vector operator-(const Point& other) const;
 };
 
 #endif /* POINT_HPP_ */

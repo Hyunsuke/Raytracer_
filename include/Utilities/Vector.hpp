@@ -23,6 +23,7 @@ public:
 
     friend Vector operator-(const Vector& v, const Point& p);
     friend Vector operator-(const Point& p, const Vector& v);
+    friend Vector operator-(const Point& p1, const Point& p2);
 };
 
 Vector operator+(const Vector& u, const Vector& v);

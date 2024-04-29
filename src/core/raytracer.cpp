@@ -17,18 +17,31 @@ Raytracer::~Raytracer()
 {
 }
 
+bool hit_sphere(const Point& center, double radius, const Ray& r) {
+    Vector oc = center - r.origin();
+    auto a = dot(r.direction(), r.direction());
+    auto b = -2.0 * dot(r.direction(), oc);
+    auto c = dot(oc, oc) - radius*radius;
+    auto discriminant = b*b - 4*a*c;
+    return (discriminant >= 0);
+}
+
 Color ray_color(const Ray& r) {
+    if (hit_sphere(Point(0,0,-1), 0.5, r))
+        return Color(1, 0, 0);
+
     Vector unit_direction = unit_vector(r.direction());
     auto t = 0.5 * (unit_direction.y + 1.0);
     return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
+
 
 void Raytracer::run()
 {
 // Image
 
     auto aspect_ratio = 16.0 / 9.0;
-    int image_width = 400;
+    int image_width = 1920;
 
     // Calculate the image height, and ensure that it's at least 1.
     int image_height = int(image_width / aspect_ratio);
