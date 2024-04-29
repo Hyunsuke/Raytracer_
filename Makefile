@@ -24,7 +24,7 @@ $(NAME): $(SRC_OBJ)
 all: $(NAME)
 
 clean:
-	rm -f $(SRCDIR)/*.o
+	rm -f $(SRC_OBJ)
 
 fclean: clean
 	rm -f $(NAME)
