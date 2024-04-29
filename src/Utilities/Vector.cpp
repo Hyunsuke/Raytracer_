@@ -61,3 +61,11 @@ Vector cross(const Vector& u, const Vector& v) {
 Vector unit_vector(const Vector& v) {
     return v / v.length();
 }
+
+Vector operator-(const Point& p, const Vector& v) {
+    return Vector(p.x - v.x, p.y - v.y, p.z - v.z);
+}
+
+Vector operator-(const Vector& v, const Point& p) {
+    return Vector(v.x - p.x, v.y - p.y, v.z - p.z);
+}

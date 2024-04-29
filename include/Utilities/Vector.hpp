@@ -9,6 +9,7 @@
 #define VECTOR_HPP_
 
 #include <cmath>
+#include "Point.hpp"
 
 class Vector {
 public:
@@ -19,12 +20,10 @@ public:
     float length() const;
     float length_squared() const;
     void normalize();
+
+    friend Vector operator-(const Vector& v, const Point& p);
+    friend Vector operator-(const Point& p, const Vector& v);
 };
-
-// Point3 est simplement un alias pour Vector, mais utile pour la clarté géométrique dans le code.
-using Point3 = Vector;
-
-// Fonctions utilitaires vectorielles
 
 Vector operator+(const Vector& u, const Vector& v);
 Vector operator-(const Vector& u, const Vector& v);
@@ -35,6 +34,7 @@ Vector operator/(const Vector& v, float t);
 float dot(const Vector& u, const Vector& v);
 Vector cross(const Vector& u, const Vector& v);
 Vector unit_vector(const Vector& v);
+
 
 
 #endif /* !VECTOR_HPP_ */
