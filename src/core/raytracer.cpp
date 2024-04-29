@@ -97,7 +97,7 @@ sf::VertexArray create_map(std::vector<std::vector<Color>> &image, int x, int y,
 void Raytracer::run()
 {
     auto aspect_ratio = 16.0 / 9.0;
-    int image_width = 400;
+    int image_width = 1920;
     int image_height = int(image_width / aspect_ratio);
     int x = 0, y = 0, z = 0;
     std::vector<std::vector<Color>> image(image_height, std::vector<Color>(image_width));
