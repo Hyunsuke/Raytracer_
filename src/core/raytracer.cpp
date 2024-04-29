@@ -60,12 +60,10 @@ sf::VertexArray create_map(int image_width, int image_height, std::vector<std::v
     return vertices;
 }
 
-sf::VertexArray create_map(std::vector<std::vector<Color>> &image, int x, int y, int z)
+sf::VertexArray create_map(std::vector<std::vector<Color>> &image, float x, float y, float z)
 {
     auto aspect_ratio = 16.0 / 9.0;
     int image_width = 1920;
-
-    // Calculate the image height, and ensure that it's at least 1.
     int image_height = int(image_width / aspect_ratio);
     image_height = (image_height < 1) ? 1 : image_height;
     auto focal_length = 1.0;
@@ -99,7 +97,8 @@ void Raytracer::run()
     auto aspect_ratio = 16.0 / 9.0;
     int image_width = 1920;
     int image_height = int(image_width / aspect_ratio);
-    int x = 0, y = 0, z = 0;
+    image_height = (image_height < 1) ? 1 : image_height;
+    float x = 0, y = 0, z = 0;
     std::vector<std::vector<Color>> image(image_height, std::vector<Color>(image_width));
     sf::VertexArray vertices = create_map(image, 0, 0, 0);
     sf::RenderWindow window(sf::VideoMode(image_width, image_height), "raytracer");
@@ -112,17 +111,19 @@ void Raytracer::run()
             }
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            x++;
+            x = x + 0.1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            x--;
+            x = x - 0.1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-            y++;
+            y = y + 0.1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            y--;
+            y = y - 0.1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-            z++;
+            z = z - 0.1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            z--;
+            z = z + 0.1;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+            window.close();
         window.clear();
         window.draw(create_map(image, x, y, z));
         window.display();
