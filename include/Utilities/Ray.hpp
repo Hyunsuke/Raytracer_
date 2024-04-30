@@ -14,9 +14,9 @@
 class Ray {
 public:
     Point originPoint;
-    Vector dir; // Renaming direction to dir
+    Vector dir;
 
-    Vector direction() const { return dir; } // Changed the function name to direction()
+    Vector direction() const { return dir; }
 
     Ray(const Point& _origin = Point(), const Vector& _direction = Vector());
     Point at(double t) const;

@@ -20,3 +20,27 @@ Vector operator-(const Point& p1, const Point& p2) {
 Vector Point::operator-(const Point& other) const {
     return Vector(x - other.x, y - other.y, z - other.z);
 }
+
+void Point::Set_X(float _x) {
+    x = _x;
+}
+
+void Point::Set_Y(float _y) {
+    y = _y;
+}
+
+void Point::Set_Z(float _z) {
+    z = _z;
+}
+
+float Point::Get_X() const {
+    return x;
+}
+
+float Point::Get_Y() const {
+    return y;
+}
+
+float Point::Get_Z() const {
+    return z;
+}
