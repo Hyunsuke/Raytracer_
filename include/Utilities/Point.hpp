@@ -8,6 +8,7 @@
 #ifndef POINT_HPP_
 #define POINT_HPP_
 
+#include "Point.hpp"
 #include "Vector.hpp"
 #include <iostream>
 

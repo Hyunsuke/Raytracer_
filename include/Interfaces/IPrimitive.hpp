@@ -11,6 +11,7 @@
 #include "../Utilities/Ray.hpp"
 #include "../Utilities/Intersection.hpp"
 
+template<typename T>
 class Primitive {
 public:
     virtual ~Primitive() {}

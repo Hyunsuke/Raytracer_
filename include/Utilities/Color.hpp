@@ -8,6 +8,7 @@
 #ifndef COLOR_HPP_
 #define COLOR_HPP_
 
+#include <iostream>
 #include "Vector.hpp"
 
 class Color {

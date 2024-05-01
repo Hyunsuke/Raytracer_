@@ -17,22 +17,26 @@
 #include <libconfig.h++>
 #include <string>
 #include <fstream>
+#include <dlfcn.h>
+#include <memory>
 
 #include "raytracerException.hpp"
 #include "check_and_parse.hpp"
 #include "../Utilities/Color.hpp"
 #include "../Utilities/Ray.hpp"
 #include "../Utilities/Point.hpp"
+#include "../Primitives/Sphere.hpp"
+#include "../Interfaces/IPrimitive.hpp"
 
 
 class Raytracer {
     public:
-        Raytracer(char *file);
-        ~Raytracer();
+        Raytracer(std::string file);
+        ~Raytracer() = default;
 
         void run();
     private:
-        char *file;
+        std::string file;
         sf::RenderWindow _window;
         sf::Event _event;
         Point Camera = Point(0, 0, 0);
@@ -47,6 +51,10 @@ class Raytracer {
         void WindowLoop();
 
         void save_ppm();
+
+        void *handle;
+        void load_sphere_library();
+        std::unique_ptr<Primitive<Sphere>> create_sphere_instance(const Point& center, double radius);
 
 };
 

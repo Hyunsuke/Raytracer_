@@ -5,7 +5,7 @@
 ** Color.cpp
 */
 
-#include "raytracer.hpp"
+#include "../../include/Utilities/Color.hpp"
 
 Color::Color(float red, float green, float blue) : r(red), g(green), b(blue)
 {

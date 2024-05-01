@@ -5,7 +5,7 @@
 ** Ray.cpp
 */
 
-#include "raytracer.hpp"
+#include "../../include/Utilities/Ray.hpp"
 
 Ray::Ray(const Point& _origin, const Vector& _direction) : originPoint(_origin), dir(_direction) {}
 

@@ -13,13 +13,13 @@
 #include "Color.hpp"
 
 struct Intersection {
+    double t;
     Point position;
     Vector normal;
     Color color;
 
-    Intersection(const Point& pos, const Vector& norm, const Color& col)
-        : position(pos), normal(norm), color(col) {}
+    Intersection(double t_val, const Point& pos, const Vector& norm, const Color& col)
+        : t(t_val), position(pos), normal(norm), color(col) {}
 };
-
 
 #endif /* !INTERSECTION_HPP_ */

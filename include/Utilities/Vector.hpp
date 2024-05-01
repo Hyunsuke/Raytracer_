@@ -9,7 +9,8 @@
 #define VECTOR_HPP_
 
 #include <cmath>
-#include "Point.hpp"
+
+class Point;
 
 class Vector {
 public:
