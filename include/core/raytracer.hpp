@@ -49,12 +49,12 @@ class Raytracer {
         sf::VertexArray conver_map();
         sf::VertexArray create_map();
         void WindowLoop();
-
         void save_ppm();
 
+        //// libsphere /////
         void *handle;
         void load_sphere_library();
-        std::unique_ptr<Primitive<Sphere>> create_sphere_instance(const Point& center, double radius);
+        std::unique_ptr<Primitive<Sphere>> create_sphere_instance(const Point& center, double radius, const Color& color);
 
 };
 

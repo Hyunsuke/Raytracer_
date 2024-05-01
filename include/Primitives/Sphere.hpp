@@ -15,15 +15,16 @@
 #include <memory>
 
 class Sphere : public Primitive<Sphere> {
-public:
-    Sphere(const Point& center, double radius);
-    bool intersect(const Ray& ray, Intersection& intersection) const override;
+    public:
+        Sphere(const Point& center, double radius, const Color& color);
+        bool intersect(const Ray& ray, Intersection& intersection) const override;
 
-private:
-    Point center_;
-    double radius_;
+    private:
+        Point center_;
+        double radius_;
+        Color color_;
 };
 
-extern "C" std::unique_ptr<Primitive<Sphere>> create_sphere(const Point& center, double radius);
+extern "C" std::unique_ptr<Primitive<Sphere>> create_sphere(const Point& center, double radius, const Color& color);
 
 #endif /* !SPHERE_HPP_ */

@@ -6,7 +6,8 @@
 ##
 
 SRCDIR = src
-SRC_ALL = $(wildcard $(SRCDIR)/*.cpp) $(wildcard $(SRCDIR)/Utilities/*.cpp) $(wildcard $(SRCDIR)/core/*.cpp)
+SRCDIRS = $(SRCDIR) $(SRCDIR)/Utilities $(SRCDIR)/core $(SRCDIR)/core/lib
+SRC_ALL = $(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.cpp))
 SRC_OBJ = $(SRC_ALL:.cpp=.o)
 
 SfmlS = -lsfml-graphics -lsfml-window -lsfml-system

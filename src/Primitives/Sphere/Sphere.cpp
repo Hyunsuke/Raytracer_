@@ -7,8 +7,8 @@
 
 #include "../../../include/Primitives/Sphere.hpp"
 
-Sphere::Sphere(const Point& center, double radius)
-    : center_(center), radius_(radius) {}
+Sphere::Sphere(const Point& center, double radius, const Color& color)
+    : center_(center), radius_(radius), color_(color) {}
 
 bool Sphere::intersect(const Ray& ray, Intersection& intersection) const {
     Vector oc = center_ - ray.origin();
@@ -18,17 +18,18 @@ bool Sphere::intersect(const Ray& ray, Intersection& intersection) const {
     double discriminant = b * b - a * c;
     if (discriminant > 0) {
         double temp = (-b - sqrt(discriminant)) / a;
-        if (temp < intersection.t) {
-            intersection.t = temp;
-            intersection.position = ray.at(intersection.t);
-            intersection.normal = (intersection.position - center_) / radius_;
-            intersection.color = Color(0.5, 0.5, 0.5);
+        if (temp < intersection.getT()) {
+            intersection.setT(temp);
+            intersection.setPosition(ray.at(intersection.getT()));
+            intersection.setNormal((intersection.getPosition() - center_) / radius_);
+            intersection.setColor(color_);
             return true;
         }
     }
     return false;
 }
 
-std::unique_ptr<Primitive<Sphere>> create_sphere(const Point& center, double radius) {
-    return std::make_unique<Sphere>(center, radius);
+std::unique_ptr<Primitive<Sphere>> create_sphere(const Point& center, double radius, const Color& color)
+{
+    return std::make_unique<Sphere>(center, radius, color);
 }

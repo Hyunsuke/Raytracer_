@@ -29,3 +29,8 @@ void Color::write_color(std::ostream &out, const Color &pixel_color)
 
     out << rbyte << ' ' << gbyte << ' ' << bbyte << '\n';
 }
+
+Color Color::operator/(double scalar) const
+{
+    return Color(r / scalar, g / scalar, b / scalar);
+}
