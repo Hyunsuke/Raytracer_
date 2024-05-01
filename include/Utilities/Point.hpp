@@ -29,6 +29,7 @@ public:
 
     friend Point operator+(const Point& p, const Vector& v);
     Vector operator-(const Point& other) const;
+    bool operator!=(const Point& other) const;
 };
 
 #endif /* POINT_HPP_ */

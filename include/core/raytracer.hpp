@@ -16,6 +16,7 @@
 #include <iostream>
 #include <libconfig.h++>
 #include <string>
+#include <fstream>
 
 #include "raytracerException.hpp"
 #include "check_and_parse.hpp"
@@ -36,13 +37,16 @@ class Raytracer {
         sf::Event _event;
         Point Camera = Point(0, 0, 0);
         std::vector<std::vector<Color>> image;
+        sf::VertexArray vertices;
         int image_width;
         int image_height;
 
-        Color ray_color(const Ray& r);
-        sf::VertexArray conver_map(int image_width, int image_height, std::vector<std::vector<Color>> &image);
+        Color ray_color(const Ray &r);
+        sf::VertexArray conver_map();
         sf::VertexArray create_map();
         void WindowLoop();
+
+        void save_ppm();
 
 };
 

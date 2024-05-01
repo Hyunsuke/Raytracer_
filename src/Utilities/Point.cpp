@@ -44,3 +44,7 @@ float Point::Get_Y() const {
 float Point::Get_Z() const {
     return z;
 }
+
+bool Point::operator!=(const Point& other) const {
+    return x != other.x || y != other.y || z != other.z;
+}
