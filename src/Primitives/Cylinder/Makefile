@@ -5,13 +5,13 @@
 ##
 
 LIB_DIR = ../../plugins
-LIB_NAME = libsphere.so
+LIB_NAME = libcylinder.so
 
 CPPFLAGS = -W -Wall -Wextra -lconfig++ -fPIC
 
 CC = g++ -g
 
-SRC = Sphere.cpp
+SRC = Cylinder.cpp
 UTILITIES_SRC = $(wildcard ../../Utilities/*.cpp)
 
 all: $(LIB_DIR)/$(LIB_NAME)

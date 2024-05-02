@@ -23,14 +23,17 @@ all: $(NAME)
 $(NAME): $(SRC_OBJ)
 	$(CC) -o $@ $^ $(CPPFLAGS) $(SfmlS)
 	$(MAKE) -C $(SRCDIR)/Primitives/Sphere
+	$(MAKE) -C $(SRCDIR)/Primitives/Cylinder
 
 clean:
 	rm -f $(SRC_OBJ)
 	$(MAKE) -C $(SRCDIR)/Primitives/Sphere clean
+	$(MAKE) -C $(SRCDIR)/Primitives/Cylinder clean
 
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C $(SRCDIR)/Primitives/Sphere fclean
+	$(MAKE) -C $(SRCDIR)/Primitives/Cylinder fclean
 
 re: fclean all
 

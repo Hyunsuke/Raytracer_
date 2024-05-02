@@ -38,7 +38,7 @@ public:
         }
         void* symbol = dlsym(handle, functionName.c_str());
         if (symbol == nullptr) {
-            throw RaytracerException("Failed to load function", "Function");
+            throw RaytracerException("Failed to load " + functionName, "Function");
         }
         return reinterpret_cast<T>(symbol);
     }

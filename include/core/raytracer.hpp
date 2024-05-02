@@ -28,6 +28,7 @@
 #include "../Primitives/Sphere.hpp"
 #include "../Interfaces/IPrimitive.hpp"
 #include "../core/libloader.hpp"
+#include "../Primitives/Cylinder.hpp"
 
 
 class Raytracer {
@@ -57,6 +58,11 @@ class Raytracer {
         void load_sphere_library(const std::string& libraryPath);
         LibraryLoader<std::unique_ptr<Primitive<Sphere>> (*)(const Point&, double, const Color&)> sphereLibraryLoader;
         std::unique_ptr<Primitive<Sphere>> create_sphere_instance(const Point& center, double radius, const Color& color);
+
+        //// libcylinder /////
+        void load_cylinder_library(const std::string& libraryPath);
+        LibraryLoader<std::unique_ptr<Primitive<Cylinder>> (*)(const Point&, const Vector&, double, double, const Color&)> cylinderLibraryLoader;
+        std::unique_ptr<Primitive<Cylinder>> create_cylinder_instance(const Point& center, const Vector& axis_direction, double radius, double height, const Color& color);
 
 };
 
