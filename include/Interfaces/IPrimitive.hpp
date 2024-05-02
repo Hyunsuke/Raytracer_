@@ -13,9 +13,9 @@
 
 template<typename T>
 class Primitive {
-public:
-    virtual ~Primitive() {}
-    virtual bool intersect(const Ray& ray, Intersection& intersection) const = 0;
+    public:
+        virtual ~Primitive() {}
+        virtual bool intersect(const Ray& ray, Intersection& intersection) const = 0;
 };
 
 #endif /* !IPRIMITIVE_HPP_ */

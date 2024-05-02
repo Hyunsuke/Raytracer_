@@ -17,19 +17,16 @@ Color Raytracer::ray_color(const Ray& r)
     load_sphere_library("src/plugins/libsphere.so");
     load_cylinder_library("src/plugins/libcylinder.so");
 
-    auto sphere = create_sphere_instance(Point(-5, 0, -4), 0.5, Color(11, 0, 255));
-    auto cylinder = create_cylinder_instance(Point(0, 0, -4), Vector(0, 1, 0), 0.5, 1.0, Color(255, 0, 0));
+    PrimitiveManager<Sphere> sphereManager;
+    sphereManager.addPrimitive(create_sphere_instance(Point(-5, 0, -4), 0.5, Color(11, 0, 255)));
 
-    Intersection sphere_intersection, cylinder_intersection;
+    PrimitiveManager<Cylinder> cylinderManager;
+    cylinderManager.addPrimitive(create_cylinder_instance(Point(0, 0, -4), Vector(0, 1, 0), 0.5, 1.0, Color(255, 0, 0)));
 
-    bool sphere_hit = sphere->intersect(r, sphere_intersection);
-    bool cylinder_hit = cylinder->intersect(r, cylinder_intersection);
+    Intersection intersection;
 
-    if (sphere_hit && (!cylinder_hit || sphere_intersection.getT() < cylinder_intersection.getT())) {
-        return sphere_intersection.getColor() / 255;
-    } else if (cylinder_hit) {
-        printf("cylinder\n");
-        return cylinder_intersection.getColor() / 255;
+    if (sphereManager.findClosestIntersection(r, intersection) || cylinderManager.findClosestIntersection(r, intersection)) {
+        return intersection.getColor() / 255;
     } else {
         Vector unit_direction = unit_vector(r.direction());
         double t = 0.5 * (unit_direction.y + 1.0);
