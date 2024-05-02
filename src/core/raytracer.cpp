@@ -14,7 +14,7 @@ Raytracer::Raytracer(std::string file)
 
 Color Raytracer::ray_color(const Ray& r)
 {
-    load_sphere_library();
+    load_sphere_library("src/libs/libsphere.so");
 
     auto sphere = create_sphere_instance(Point(0, 0, -1), 0.5, Color(11, 0, 255));
 

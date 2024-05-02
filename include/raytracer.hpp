@@ -11,6 +11,7 @@
 #include "core/check_and_parse.hpp"
 #include "core/raytracer.hpp"
 #include "core/raytracerException.hpp"
+#include "core/libloader.hpp"
 
 #include "Interfaces/ILight.hpp"
 #include "Interfaces/IPrimitive.hpp"

@@ -27,6 +27,7 @@
 #include "../Utilities/Point.hpp"
 #include "../Primitives/Sphere.hpp"
 #include "../Interfaces/IPrimitive.hpp"
+#include "../core/libloader.hpp"
 
 
 class Raytracer {
@@ -51,9 +52,10 @@ class Raytracer {
         void WindowLoop();
         void save_ppm();
 
+
         //// libsphere /////
-        void *handle;
-        void load_sphere_library();
+        void load_sphere_library(const std::string& libraryPath);
+        LibraryLoader<std::unique_ptr<Primitive<Sphere>> (*)(const Point&, double, const Color&)> sphereLibraryLoader;
         std::unique_ptr<Primitive<Sphere>> create_sphere_instance(const Point& center, double radius, const Color& color);
 
 };
