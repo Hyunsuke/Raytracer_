@@ -29,6 +29,7 @@
 #include "../Interfaces/IPrimitive.hpp"
 #include "../core/libloader.hpp"
 #include "../Primitives/Cylinder.hpp"
+#include "../Primitives/Plane.hpp"
 
 
 class Raytracer {
@@ -63,6 +64,11 @@ class Raytracer {
         void load_cylinder_library(const std::string& libraryPath);
         LibraryLoader<std::unique_ptr<Primitive<Cylinder>> (*)(const Point&, const Vector&, double, double, const Color&)> cylinderLibraryLoader;
         std::unique_ptr<Primitive<Cylinder>> create_cylinder_instance(const Point& center, const Vector& axis_direction, double radius, double height, const Color& color);
+
+        //// libplane /////
+        void load_plane_library(const std::string& libraryPath);
+        LibraryLoader<std::unique_ptr<Primitive<Plane>> (*)(const char, double, const Color&)> planeLibraryLoader;
+        std::unique_ptr<Primitive<Plane>> create_plane_instance(const char axis, double position, const Color& color);
 
 };
 

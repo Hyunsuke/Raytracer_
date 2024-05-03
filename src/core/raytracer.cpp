@@ -16,6 +16,7 @@ Color Raytracer::ray_color(const Ray& r)
 {
     load_sphere_library("src/plugins/libsphere.so");
     load_cylinder_library("src/plugins/libcylinder.so");
+    load_plane_library("src/plugins/libplane.so");
 
     PrimitiveManager<Sphere> sphereManager;
     sphereManager.addPrimitive(create_sphere_instance(Point(-5, 0, -4), 0.5, Color(11, 0, 255)));
@@ -23,9 +24,14 @@ Color Raytracer::ray_color(const Ray& r)
     PrimitiveManager<Cylinder> cylinderManager;
     cylinderManager.addPrimitive(create_cylinder_instance(Point(0, 0, -4), Vector(0, 1, 0), 0.5, 1.0, Color(255, 0, 0)));
 
+    PrimitiveManager<Plane> planeManager;
+    planeManager.addPrimitive(create_plane_instance('Y', -20, Color(150, 150, 150)));
+
     Intersection intersection;
 
-    if (sphereManager.findClosestIntersection(r, intersection) || cylinderManager.findClosestIntersection(r, intersection)) {
+    if (sphereManager.findClosestIntersection(r, intersection) ||
+        cylinderManager.findClosestIntersection(r, intersection) ||
+        planeManager.findClosestIntersection(r, intersection)) {
         return intersection.getColor() / 255;
     } else {
         Vector unit_direction = unit_vector(r.direction());
