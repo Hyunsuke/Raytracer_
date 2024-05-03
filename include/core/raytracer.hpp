@@ -30,6 +30,7 @@
 #include "../core/libloader.hpp"
 #include "../Primitives/Cylinder.hpp"
 #include "../Primitives/Plane.hpp"
+#include "../Primitives/Cone.hpp"
 
 
 class Raytracer {
@@ -69,6 +70,11 @@ class Raytracer {
         void load_plane_library(const std::string& libraryPath);
         LibraryLoader<std::unique_ptr<Primitive<Plane>> (*)(const char, double, const Color&)> planeLibraryLoader;
         std::unique_ptr<Primitive<Plane>> create_plane_instance(const char axis, double position, const Color& color);
+
+        //// libcone /////
+        void load_cone_library(const std::string& libraryPath);
+        LibraryLoader<std::unique_ptr<Primitive<Cone>> (*)(const Point&, const Vector&, double, double, const Color&)> coneLibraryLoader;
+        std::unique_ptr<Primitive<Cone>> create_cone_instance(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color);
 
 };
 

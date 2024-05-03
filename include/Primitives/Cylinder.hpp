@@ -18,7 +18,7 @@
 class Cylinder : public Primitive<Cylinder> {
 public:
     Cylinder(const Point &base_center, const Vector &axis_direction, double radius, double height, const Color &color);
-    bool intersect(const Ray& ray, Intersection& intersection) const;
+    bool intersect(const Ray& ray, Intersection& intersection) const override;
 
 private:
     Point base_center_;

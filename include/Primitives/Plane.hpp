@@ -17,7 +17,7 @@
 class Plane : public Primitive<Plane> {
     public:
         Plane(const char axis, double position, const Color& color);
-        bool intersect(const Ray& ray, Intersection& intersection) const;
+        bool intersect(const Ray& ray, Intersection& intersection) const override;
 
     private:
         char axis_;

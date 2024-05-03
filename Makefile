@@ -25,20 +25,28 @@ $(NAME): $(SRC_OBJ)
 	$(MAKE) -C $(SRCDIR)/Primitives/Sphere
 	$(MAKE) -C $(SRCDIR)/Primitives/Cylinder
 	$(MAKE) -C $(SRCDIR)/Primitives/Plane
+	$(MAKE) -C $(SRCDIR)/Primitives/Cone
+
+so:
+	$(MAKE) -C $(SRCDIR)/Primitives/Sphere
+	$(MAKE) -C $(SRCDIR)/Primitives/Cylinder
+	$(MAKE) -C $(SRCDIR)/Primitives/Plane
+	$(MAKE) -C $(SRCDIR)/Primitives/Cone
 
 clean:
 	rm -f $(SRC_OBJ)
 	$(MAKE) -C $(SRCDIR)/Primitives/Sphere clean
 	$(MAKE) -C $(SRCDIR)/Primitives/Cylinder clean
 	$(MAKE) -C $(SRCDIR)/Primitives/Plane clean
+	$(MAKE) -C $(SRCDIR)/Primitives/Cone clean
 
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C $(SRCDIR)/Primitives/Sphere fclean
 	$(MAKE) -C $(SRCDIR)/Primitives/Cylinder fclean
 	$(MAKE) -C $(SRCDIR)/Primitives/Plane fclean
+	$(MAKE) -C $(SRCDIR)/Primitives/Cone fclean
 
 re: fclean all
 
 .PHONY: all clean fclean re
-
