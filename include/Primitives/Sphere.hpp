@@ -14,7 +14,7 @@
 #include "../Utilities/Intersection.hpp"
 #include <memory>
 
-class Sphere : public Primitive<Sphere> {
+class Sphere : public Primitive {
     public:
         Sphere(const Point& center, double radius, const Color& color);
         bool intersect(const Ray& ray, Intersection& intersection) const override;
@@ -25,6 +25,6 @@ class Sphere : public Primitive<Sphere> {
         Color color_;
 };
 
-extern "C" std::unique_ptr<Primitive<Sphere>> create_sphere(const Point& center, double radius, const Color& color);
+extern "C" std::unique_ptr<Sphere> create_sphere(const Point& center, double radius, const Color& color);
 
 #endif /* !SPHERE_HPP_ */

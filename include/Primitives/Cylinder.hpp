@@ -15,7 +15,7 @@
 #include <memory>
 
 
-class Cylinder : public Primitive<Cylinder> {
+class Cylinder : public Primitive {
 public:
     Cylinder(const Point &base_center, const Vector &axis_direction, double radius, double height, const Color &color);
     bool intersect(const Ray& ray, Intersection& intersection) const override;
@@ -28,6 +28,6 @@ private:
     Color color_;
 };
 
-extern "C" std::unique_ptr<Primitive<Cylinder>> create_cylinder(const Point& base_center, const Vector& axis_direction, double radius, double height, const Color& color);
+extern "C" std::unique_ptr<Cylinder> create_cylinder(const Point& base_center, const Vector& axis_direction, double radius, double height, const Color& color);
 
 #endif /* !CYLINDER_HPP_ */

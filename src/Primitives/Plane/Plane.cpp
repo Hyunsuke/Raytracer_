@@ -48,7 +48,7 @@ bool Plane::intersect(const Ray& ray, Intersection& intersection) const {
     }
 
 
-std::unique_ptr<Primitive<Plane>> create_plane(const char axis, double position, const Color& color)
+std::unique_ptr<Plane> create_plane(const char axis, double position, const Color& color)
 {
     return std::make_unique<Plane>(axis, position, color);
 }

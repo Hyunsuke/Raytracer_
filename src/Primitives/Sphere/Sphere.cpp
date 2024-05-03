@@ -29,7 +29,7 @@ bool Sphere::intersect(const Ray& ray, Intersection& intersection) const {
     return false;
 }
 
-std::unique_ptr<Primitive<Sphere>> create_sphere(const Point& center, double radius, const Color& color)
+std::unique_ptr<Sphere> create_sphere(const Point& center, double radius, const Color& color)
 {
     return std::make_unique<Sphere>(center, radius, color);
 }

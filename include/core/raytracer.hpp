@@ -58,23 +58,23 @@ class Raytracer {
 
         //// libsphere /////
         void load_sphere_library(const std::string& libraryPath);
-        LibraryLoader<std::unique_ptr<Primitive<Sphere>> (*)(const Point&, double, const Color&)> sphereLibraryLoader;
-        std::unique_ptr<Primitive<Sphere>> create_sphere_instance(const Point& center, double radius, const Color& color);
+        LibraryLoader<std::unique_ptr<Sphere> (*)(const Point&, double, const Color&)> sphereLibraryLoader;
+        std::unique_ptr<Sphere> create_sphere_instance(const Point& center, double radius, const Color& color);
 
         //// libcylinder /////
         void load_cylinder_library(const std::string& libraryPath);
-        LibraryLoader<std::unique_ptr<Primitive<Cylinder>> (*)(const Point&, const Vector&, double, double, const Color&)> cylinderLibraryLoader;
-        std::unique_ptr<Primitive<Cylinder>> create_cylinder_instance(const Point& center, const Vector& axis_direction, double radius, double height, const Color& color);
+        LibraryLoader<std::unique_ptr<Cylinder> (*)(const Point&, const Vector&, double, double, const Color&)> cylinderLibraryLoader;
+        std::unique_ptr<Cylinder> create_cylinder_instance(const Point& center, const Vector& axis_direction, double radius, double height, const Color& color);
 
         //// libplane /////
         void load_plane_library(const std::string& libraryPath);
-        LibraryLoader<std::unique_ptr<Primitive<Plane>> (*)(const char, double, const Color&)> planeLibraryLoader;
-        std::unique_ptr<Primitive<Plane>> create_plane_instance(const char axis, double position, const Color& color);
+        LibraryLoader<std::unique_ptr<Plane> (*)(const char, double, const Color&)> planeLibraryLoader;
+        std::unique_ptr<Plane> create_plane_instance(const char axis, double position, const Color& color);
 
         //// libcone /////
         void load_cone_library(const std::string& libraryPath);
-        LibraryLoader<std::unique_ptr<Primitive<Cone>> (*)(const Point&, const Vector&, double, double, const Color&)> coneLibraryLoader;
-        std::unique_ptr<Primitive<Cone>> create_cone_instance(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color);
+        LibraryLoader<std::unique_ptr<Cone> (*)(const Point&, const Vector&, double, double, const Color&)> coneLibraryLoader;
+        std::unique_ptr<Cone> create_cone_instance(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color);
 
 };
 

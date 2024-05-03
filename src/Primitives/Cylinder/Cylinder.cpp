@@ -34,7 +34,7 @@ bool Cylinder::intersect(const Ray& ray, Intersection& intersection) const
     return false;
 }
 
-std::unique_ptr<Primitive<Cylinder>> create_cylinder(const Point& base_center, const Vector& axis_direction, double radius, double height, const Color& color)
+std::unique_ptr<Cylinder> create_cylinder(const Point& base_center, const Vector& axis_direction, double radius, double height, const Color& color)
 {
     return std::make_unique<Cylinder>(base_center, axis_direction, radius, height, color);
 }

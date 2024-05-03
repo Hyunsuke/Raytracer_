@@ -14,7 +14,7 @@
 #include "../Utilities/Intersection.hpp"
 #include <memory>
 
-class Plane : public Primitive<Plane> {
+class Plane : public Primitive {
     public:
         Plane(const char axis, double position, const Color& color);
         bool intersect(const Ray& ray, Intersection& intersection) const override;
@@ -24,6 +24,6 @@ class Plane : public Primitive<Plane> {
         double position_;
         Color color_;
 };
-extern "C" std::unique_ptr<Primitive<Plane>> create_plane(const char axis, double position, const Color& color);
+extern "C" std::unique_ptr<Plane> create_plane(const char axis, double position, const Color& color);
 
 #endif /* !PLANE_HPP_ */

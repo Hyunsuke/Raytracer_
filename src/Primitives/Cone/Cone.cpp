@@ -37,7 +37,7 @@ bool Cone::intersect(const Ray& ray, Intersection& intersection) const {
 }
 
 
-extern "C" std::unique_ptr<Primitive<Cone>> create_cone(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color)
+extern "C" std::unique_ptr<Cone> create_cone(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color)
 {
     return std::make_unique<Cone>(apex, -1 * axis_direction, angle, height, color);
 }

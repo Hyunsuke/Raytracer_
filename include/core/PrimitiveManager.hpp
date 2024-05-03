@@ -17,7 +17,7 @@ class PrimitiveManager {
 public:
     PrimitiveManager() {}
 
-    void addPrimitive(std::unique_ptr<Primitive<T>>&& primitive) {
+    void addPrimitive(std::unique_ptr<Primitive>&& primitive) {
         primitives_.push_back(std::move(primitive));
     }
 
@@ -44,7 +44,7 @@ public:
     }
 
 private:
-    std::vector<std::unique_ptr<Primitive<T>>> primitives_;
+    std::vector<std::unique_ptr<Primitive>> primitives_;
 };
 
 #endif /* !PRIMITIVEMANAGER_HPP_ */

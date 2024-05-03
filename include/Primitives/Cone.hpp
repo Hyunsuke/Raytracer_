@@ -15,7 +15,7 @@
 #include <memory>
 
 
-class Cone : public Primitive<Cone> {
+class Cone : public Primitive {
     public:
         Cone(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color);
         bool intersect(const Ray& ray, Intersection& intersection) const override;
@@ -28,6 +28,6 @@ class Cone : public Primitive<Cone> {
         Color color_;
 };
 
-extern "C" std::unique_ptr<Primitive<Cone>> create_cone(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color);
+extern "C" std::unique_ptr<Cone> create_cone(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color);
 
 #endif /* !CONE_HPP_ */
