@@ -33,6 +33,86 @@ std::shared_ptr<Light> getLightsFromLight(const libconfig::Setting& pointLight, 
 }
 */
 
+std::shared_ptr<Primitive> getConeFromPrimitive(const libconfig::Setting& cone)
+{
+    std::shared_ptr<Cone> myCone = std::make_unique<Cone>();
+    std::string axis = "Z";
+    double angle = 0, height = 0;
+    int pos_x = 0, pos_y = 0, pos_z = 0;
+    int axis_x = 0, axis_y = 0, axis_z = 0;
+
+    cone.lookupValue("pos_x", pos_x);
+    myCone->setPosX(pos_x);
+    cone.lookupValue("pos_y", pos_y);
+    myCone->setPosY(pos_y);
+    cone.lookupValue("pos_z", pos_z);
+    myCone->setPosZ(pos_z);
+    cone.lookupValue("axis_x", axis_x);
+    myCone->setAxisX(axis_x);
+    cone.lookupValue("axis_y", axis_y);
+    myCone->setAxisY(axis_y);
+    cone.lookupValue("axis_z", axis_z);
+    myCone->setAxisZ(axis_z);
+    cone.lookupValue("angle", angle);
+    myCone->setAngle(angle);
+    cone.lookupValue("height", height);
+    myCone->setHeight(height);
+
+    int color_r = 0, color_g = 0, color_b = 0; // Déclarer les variables pour RGB
+    const libconfig::Setting& color = cone.lookup("color"); // Obtenir la sous-section de la couleur
+    color.lookupValue("r", color_r);
+    myCone->setColorR(color_r);
+    color.lookupValue("g", color_g);
+    myCone->setColorG(color_g);
+    color.lookupValue("b", color_b);
+    myCone->setColorB(color_b);
+    if (cone.getLength() == 0) {
+        // std::cout << "No planes found" << std::endl;
+        return nullptr;
+    }
+    return myCone;
+}
+
+std::shared_ptr<Primitive> getCylinderFromPrimitive(const libconfig::Setting& cylinder)
+{
+    std::shared_ptr<Cylinder> myCylinder = std::make_unique<Cylinder>();
+    std::string axis = "Z";
+    double radius = 0, height = 0;
+    int pos_x = 0, pos_y = 0, pos_z = 0;
+    int axis_x = 0, axis_y = 0, axis_z = 0;
+
+    cylinder.lookupValue("pos_x", pos_x);
+    myCylinder->setPosX(pos_x);
+    cylinder.lookupValue("pos_y", pos_y);
+    myCylinder->setPosY(pos_y);
+    cylinder.lookupValue("pos_z", pos_z);
+    myCylinder->setPosZ(pos_z);
+    cylinder.lookupValue("axis_x", axis_x);
+    myCylinder->setAxisX(axis_x);
+    cylinder.lookupValue("axis_y", axis_y);
+    myCylinder->setAxisY(axis_y);
+    cylinder.lookupValue("axis_z", axis_z);
+    myCylinder->setAxisZ(axis_z);
+    cylinder.lookupValue("radius", radius);
+    myCylinder->setR(radius);
+    cylinder.lookupValue("height", height);
+    myCylinder->setHeight(height);
+
+    int color_r = 0, color_g = 0, color_b = 0; // Déclarer les variables pour RGB
+    const libconfig::Setting& color = cylinder.lookup("color"); // Obtenir la sous-section de la couleur
+    color.lookupValue("r", color_r);
+    myCylinder->setColorR(color_r);
+    color.lookupValue("g", color_g);
+    myCylinder->setColorG(color_g);
+    color.lookupValue("b", color_b);
+    myCylinder->setColorB(color_b);
+    if (cylinder.getLength() == 0) {
+        // std::cout << "No planes found" << std::endl;
+        return nullptr;
+    }
+    return myCylinder;
+}
+
 std::shared_ptr<Primitive> getPlanesFromPrimitive(const libconfig::Setting& plane)
 {
     std::shared_ptr<Plane> myPlane = std::make_unique<Plane>();
@@ -148,6 +228,24 @@ int check_and_parse::parse (std::string scene_file)
             for (int i = 0; i < planes.getLength(); ++i) {
                 const libconfig::Setting& plane = planes[i];
                 primitivesVector.push_back(std::make_pair("Plane", getPlanesFromPrimitive(plane)));
+            }
+        }
+
+        // Cylinder //
+        const libconfig::Setting& cylinders = primitives.lookup("cylinders");
+        if (primitives.exists("cylinders")) {
+            for (int i = 0; i < cylinders.getLength(); ++i) {
+                const libconfig::Setting& cylinder = cylinders[i];
+                primitivesVector.push_back(std::make_pair("Cylinder", getCylinderFromPrimitive(cylinder)));
+            }
+        }
+
+        // Cone //
+        const libconfig::Setting& cones = primitives.lookup("cones");
+        if (primitives.exists("cones")) {
+            for (int i = 0; i < cones.getLength(); ++i) {
+                const libconfig::Setting& cone = cones[i];
+                primitivesVector.push_back(std::make_pair("Cone", getConeFromPrimitive(cone)));
             }
         }
 

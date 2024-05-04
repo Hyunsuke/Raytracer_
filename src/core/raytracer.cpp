@@ -35,12 +35,19 @@ Color Raytracer::ray_color(const Ray& r)
             Color(PlanePtr->getColorR(), PlanePtr->getColorG(), PlanePtr->getColorB())));
             // std::cout << PlanePtr->getPosition() << std::endl;
         }
+        if (primitiveVector[i].first == "Cylinder") {
+            std::shared_ptr<Cylinder> CylinderPtr = std::dynamic_pointer_cast<Cylinder>(primitiveVector[i].second);
+            cylinderManager.addPrimitive(create_cylinder_instance(Point(0, 0, -4),
+            Vector(0, 1, 0), 0.5, 1.0, Color(255, 0, 0)));
+        }
+        if (primitiveVector[i].first == "Cone") {
+            std::shared_ptr<Cone> ConePtr = std::dynamic_pointer_cast<Cone>(primitiveVector[i].second);
+            coneManager.addPrimitive(create_cone_instance(Point(0, 0, -3), Vector(0, 1, 0), M_PI / 4, 1.0, Color(255, 255, 0)));
+        }
     }
 
-    cylinderManager.addPrimitive(create_cylinder_instance(Point(0, 0, -4), Vector(0, 1, 0), 0.5, 1.0, Color(255, 0, 0)));
 
 
-    coneManager.addPrimitive(create_cone_instance(Point(0, 0, -3), Vector(0, 1, 0), M_PI / 4, 1.0, Color(255, 255, 0)));
 
     Intersection intersection;
 
