@@ -70,12 +70,23 @@ Color Raytracer::ray_color(const Ray& r)
     }
 }
 
+int getCameraInfos(std::vector<std::pair<std::string, int>> camera_info, std::string key)
+{
+    for (size_t i = 0; i < camera_info.size(); i++) {
+        if (camera_info[i].first == key)
+            return camera_info[i].second;
+    }
+    return 0;
+}
+
 void Raytracer::run()
 {
-    this->image_width = 600;
-    double aspect_ratio = 16.0 / 9.0;
-    image_height = int(image_width / aspect_ratio);
-    image_height = (image_height < 1) ? 1 : image_height;
+    this->image_width = getCameraInfos(_parse.getCameraResolution(), "width");
+    // this->image_width = 600;
+    // double aspect_ratio = 16.0 / 9.0;
+    // image_height = int(image_width / aspect_ratio);
+    // image_height = (image_height < 1) ? 1 : image_height;
+    image_height = getCameraInfos(_parse.getCameraResolution(), "height");
     image = std::vector<std::vector<Color>>(image_height, std::vector<Color>(image_width));
     this->_window.create(sf::VideoMode(image_width, image_height), "raytracer");
     vertices = create_map();
