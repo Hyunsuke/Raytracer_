@@ -11,9 +11,11 @@
 int main(int ac, char **av)
 {
     try {
-        check_and_parse check_and_parse(ac, av);
+        check_and_parse parsed(ac, av);
+        // std::vector<std::pair<std::string, int>> test;
+        // test = parsed.getCameraResolution();
 
-        Raytracer raytracer(av[1]);
+        Raytracer raytracer(av[1], parsed);
         raytracer.run();
     } catch (const RaytracerException &e) {
         std::cerr << e.what() << std::endl;

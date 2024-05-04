@@ -35,12 +35,13 @@
 
 class Raytracer {
     public:
-        Raytracer(std::string file);
+        Raytracer(std::string file, check_and_parse &check_parse);
         ~Raytracer() = default;
 
         void run();
     private:
         std::string file;
+        check_and_parse _parse;
         sf::RenderWindow _window;
         sf::Event _event;
         Point Camera = Point(0, 0, 0);

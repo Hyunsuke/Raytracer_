@@ -16,10 +16,33 @@
 
 class Plane : public Primitive {
     public:
+        Plane() = default; // Parser constructor
+        ~Plane() {}; // Destructor
         Plane(const char axis, double position, const Color& color);
         bool intersect(const Ray& ray, Intersection& intersection) const override;
+        void setAxis(std::string axis) { _axis = axis; }
+        void setPosition(int pos) { _pos = pos;}
+        void setColorR(int cR) { _color_r = cR; }
+        void setColorG(int cG) { _color_g = cG; }
+        void setColorB(int cB) { _color_b = cB; }
+        char getAxis() {
+            if (_axis.empty())
+                return 'Z';
+            else if (_axis[0] != 'X' && _axis[0] != 'Y' && _axis[0] != 'Z')
+                return _axis[0];
+        }
+        int getPosition() { return _pos;}
+        int getColorR() { return _color_r; }
+        int getColorG() { return _color_g; }
+        int getColorB() { return _color_b; }
 
     private:
+        std::string _axis = "Z";
+        int _pos = 0;
+        int _color_r = 0;
+        int _color_g = 0;
+        int _color_b = 0;
+    // 16 private
         char axis_;
         double position_;
         Color color_;

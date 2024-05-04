@@ -7,9 +7,8 @@
 
 #include "raytracer.hpp"
 
-Raytracer::Raytracer(std::string file)
+Raytracer::Raytracer(std::string _file, check_and_parse &parse) : file(_file), _parse(parse)
 {
-    this->file = file;
 }
 
 Color Raytracer::ray_color(const Ray& r)
@@ -18,17 +17,25 @@ Color Raytracer::ray_color(const Ray& r)
     load_cylinder_library("src/plugins/libcylinder.so");
     load_plane_library("src/plugins/libplane.so");
     load_cone_library("src/plugins/libcone.so");
-
+    std::vector<std::pair<std::string, std::shared_ptr<Primitive>>> primitiveVector = _parse.getPrimitivesVector();
     PrimitiveManager<Sphere> sphereManager;
-    sphereManager.addPrimitive(create_sphere_instance(Point(-5, 0, -4), 0.5, Color(11, 0, 255)));
-
     PrimitiveManager<Cylinder> cylinderManager;
+    PrimitiveManager<Plane> planeManager;
+    PrimitiveManager<Cone> coneManager;
+    for (size_t i = 0; i < primitiveVector.size(); ++i) {
+        if (primitiveVector[i].first == "Sphere") {
+            std::shared_ptr<Sphere> SpherePtr = std::dynamic_pointer_cast<Sphere>(primitiveVector[i].second);
+            sphereManager.addPrimitive(create_sphere_instance(Point
+            (SpherePtr->getX(), SpherePtr->getY(), SpherePtr->getZ()),
+            SpherePtr->getR(), Color(SpherePtr->getcR(), SpherePtr->getcG(), SpherePtr->getcB())));
+        }
+        if (primitiveVector[i].first == "Plane")
+            planeManager.addPrimitive(create_plane_instance('Y', -20, Color(150, 150, 150)));
+    }
+
     cylinderManager.addPrimitive(create_cylinder_instance(Point(0, 0, -4), Vector(0, 1, 0), 0.5, 1.0, Color(255, 0, 0)));
 
-    PrimitiveManager<Plane> planeManager;
-    planeManager.addPrimitive(create_plane_instance('Y', -20, Color(150, 150, 150)));
 
-    PrimitiveManager<Cone> coneManager;
     coneManager.addPrimitive(create_cone_instance(Point(0, 0, -3), Vector(0, 1, 0), M_PI / 4, 1.0, Color(255, 255, 0)));
 
     Intersection intersection;
