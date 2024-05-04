@@ -29,8 +29,12 @@ Color Raytracer::ray_color(const Ray& r)
             (SpherePtr->getX(), SpherePtr->getY(), SpherePtr->getZ()),
             SpherePtr->getR(), Color(SpherePtr->getcR(), SpherePtr->getcG(), SpherePtr->getcB())));
         }
-        if (primitiveVector[i].first == "Plane")
-            planeManager.addPrimitive(create_plane_instance('Y', -20, Color(150, 150, 150)));
+        if (primitiveVector[i].first == "Plane") {
+            std::shared_ptr<Plane> PlanePtr = std::dynamic_pointer_cast<Plane>(primitiveVector[i].second);
+            planeManager.addPrimitive(create_plane_instance(PlanePtr->getAxis(), PlanePtr->getPosition(),
+            Color(PlanePtr->getColorR(), PlanePtr->getColorG(), PlanePtr->getColorB())));
+            // std::cout << PlanePtr->getPosition() << std::endl;
+        }
     }
 
     cylinderManager.addPrimitive(create_cylinder_instance(Point(0, 0, -4), Vector(0, 1, 0), 0.5, 1.0, Color(255, 0, 0)));

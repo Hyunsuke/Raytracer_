@@ -37,7 +37,7 @@ std::shared_ptr<Primitive> getPlanesFromPrimitive(const libconfig::Setting& plan
 {
     std::shared_ptr<Plane> myPlane = std::make_unique<Plane>();
     std::string axis = "Z";
-    int position = 0;
+    double position = 0;
     plane.lookupValue("axis", axis);
     myPlane->setAxis(axis);
     plane.lookupValue("position", position);
@@ -147,7 +147,7 @@ int check_and_parse::parse (std::string scene_file)
         if (primitives.exists("planes")) {
             for (int i = 0; i < planes.getLength(); ++i) {
                 const libconfig::Setting& plane = planes[i];
-                primitivesVector.push_back(std::make_pair("Planes", getPlanesFromPrimitive(plane)));
+                primitivesVector.push_back(std::make_pair("Plane", getPlanesFromPrimitive(plane)));
             }
         }
 
