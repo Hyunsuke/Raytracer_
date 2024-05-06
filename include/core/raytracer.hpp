@@ -31,6 +31,7 @@
 #include "../Primitives/Cylinder.hpp"
 #include "../Primitives/Plane.hpp"
 #include "../Primitives/Cone.hpp"
+#include "PrimitiveManager.hpp"
 
 
 class Raytracer {
@@ -49,6 +50,11 @@ class Raytracer {
         sf::VertexArray vertices;
         int image_width;
         int image_height;
+
+        PrimitiveManager<Sphere> sphereManager;
+        PrimitiveManager<Cylinder> cylinderManager;
+        PrimitiveManager<Plane> planeManager;
+        PrimitiveManager<Cone> coneManager;
 
         Color ray_color(const Ray &r);
         sf::VertexArray conver_map();

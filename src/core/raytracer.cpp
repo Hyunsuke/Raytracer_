@@ -9,19 +9,41 @@
 
 Raytracer::Raytracer(std::string _file, check_and_parse &parse) : file(_file), _parse(parse)
 {
-}
-
-Color Raytracer::ray_color(const Ray& r)
-{
     load_sphere_library("src/plugins/libsphere.so");
     load_cylinder_library("src/plugins/libcylinder.so");
     load_plane_library("src/plugins/libplane.so");
     load_cone_library("src/plugins/libcone.so");
+}
+
+Color Raytracer::ray_color(const Ray& r)
+{
+    Intersection intersection;
+
+    if (sphereManager.findClosestIntersection(r, intersection) ||
+        cylinderManager.findClosestIntersection(r, intersection) ||
+        coneManager.findClosestIntersection(r, intersection) ||
+        planeManager.findClosestIntersection(r, intersection)) {
+        return intersection.getColor() / 255;
+    } else {
+        Vector unit_direction = unit_vector(r.direction());
+        double t = 0.5 * (unit_direction.y + 1.0);
+        return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
+    }
+}
+
+int getCameraInfos(std::vector<std::pair<std::string, int>> camera_info, std::string key)
+{
+    for (size_t i = 0; i < camera_info.size(); i++) {
+        if (camera_info[i].first == key)
+            return camera_info[i].second;
+    }
+    return 0;
+}
+
+void Raytracer::run()
+{
     std::vector<std::pair<std::string, std::shared_ptr<Primitive>>> primitiveVector = _parse.getPrimitivesVector();
-    PrimitiveManager<Sphere> sphereManager;
-    PrimitiveManager<Cylinder> cylinderManager;
-    PrimitiveManager<Plane> planeManager;
-    PrimitiveManager<Cone> coneManager;
+
     for (size_t i = 0; i < primitiveVector.size(); ++i) {
         if (primitiveVector[i].first == "Sphere") {
             std::shared_ptr<Sphere> SpherePtr = std::dynamic_pointer_cast<Sphere>(primitiveVector[i].second);
@@ -53,34 +75,6 @@ Color Raytracer::ray_color(const Ray& r)
         }
     }
 
-
-
-
-    Intersection intersection;
-
-    if (sphereManager.findClosestIntersection(r, intersection) ||
-        cylinderManager.findClosestIntersection(r, intersection) ||
-        coneManager.findClosestIntersection(r, intersection) ||
-        planeManager.findClosestIntersection(r, intersection)) {
-        return intersection.getColor() / 255;
-    } else {
-        Vector unit_direction = unit_vector(r.direction());
-        double t = 0.5 * (unit_direction.y + 1.0);
-        return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
-    }
-}
-
-int getCameraInfos(std::vector<std::pair<std::string, int>> camera_info, std::string key)
-{
-    for (size_t i = 0; i < camera_info.size(); i++) {
-        if (camera_info[i].first == key)
-            return camera_info[i].second;
-    }
-    return 0;
-}
-
-void Raytracer::run()
-{
     this->image_width = getCameraInfos(_parse.getCameraResolution(), "width");
     // this->image_width = 600;
     // double aspect_ratio = 16.0 / 9.0;
@@ -89,6 +83,9 @@ void Raytracer::run()
     image_height = getCameraInfos(_parse.getCameraResolution(), "height");
     image = std::vector<std::vector<Color>>(image_height, std::vector<Color>(image_width));
     this->_window.create(sf::VideoMode(image_width, image_height), "raytracer");
+    Camera.Set_X(getCameraInfos(_parse.getCameraPos(), "x"));
+    Camera.Set_Y(getCameraInfos(_parse.getCameraPos(), "y"));
+    Camera.Set_Z(getCameraInfos(_parse.getCameraPos(), "z"));
     vertices = create_map();
 
     while (this->_window.isOpen())

@@ -16,6 +16,11 @@ template<typename T>
 class PrimitiveManager {
 public:
     PrimitiveManager() {}
+    ~PrimitiveManager() {
+        for (size_t i = 0; i < primitives_.size(); ++i)
+            primitives_[i].release();
+
+    }
 
     void addPrimitive(std::unique_ptr<Primitive>&& primitive) {
         primitives_.push_back(std::move(primitive));
