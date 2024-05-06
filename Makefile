@@ -17,7 +17,7 @@ SRC_OBJ = $(SRC_ALL:.cpp=.o)
 
 SfmlS = -lsfml-graphics -lsfml-window -lsfml-system
 
-CPPFLAGS = -W -Wall -Wextra -Iinclude -lconfig++
+CPPFLAGS = -W -Wall -Wextra -Iinclude -lconfig++ -g
 
 CC = g++ -g
 

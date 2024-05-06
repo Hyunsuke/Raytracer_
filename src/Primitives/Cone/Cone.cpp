@@ -15,11 +15,9 @@ Cone::Cone(const Point& apex, const Vector& axis_direction, double angle, double
 bool Cone::intersect(const Ray& ray, Intersection& intersection) const {
     Vector oc = ray.origin() - apex_;
     double cos_angle = cos(angle_);
-    double sin_angle = sin(angle_);
     double a = dot(ray.direction() - axis_direction_ * dot(ray.direction(), axis_direction_), ray.direction() - axis_direction_ * dot(ray.direction(), axis_direction_)) - cos_angle * cos_angle * dot(ray.direction(), ray.direction());
     double b = 2.0 * (dot(ray.direction() - axis_direction_ * dot(ray.direction(), axis_direction_), oc - axis_direction_ * dot(oc, axis_direction_)) - cos_angle * cos_angle * dot(ray.direction(), oc));
     double c = dot(oc - axis_direction_ * dot(oc, axis_direction_), oc - axis_direction_ * dot(oc, axis_direction_)) - cos_angle * cos_angle * dot(oc, oc);
-    
     double discriminant = b * b - 4 * a * c;
     if (discriminant > 0) {
         double temp = (-b - sqrt(discriminant)) / (2.0 * a);

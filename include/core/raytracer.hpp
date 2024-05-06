@@ -31,12 +31,13 @@
 #include "../Primitives/Cylinder.hpp"
 #include "../Primitives/Plane.hpp"
 #include "../Primitives/Cone.hpp"
+#include "../core/PrimitiveManager.hpp"
 
 
 class Raytracer {
     public:
         Raytracer(std::string file, check_and_parse &check_parse);
-        ~Raytracer() = default;
+        ~Raytracer();
 
         void run();
     private:
@@ -56,26 +57,30 @@ class Raytracer {
         void WindowLoop();
         void save_ppm();
 
+        PrimitiveManager<Sphere> sphereManager;
+        PrimitiveManager<Cylinder> cylinderManager;
+        PrimitiveManager<Plane> planeManager;
+        PrimitiveManager<Cone> coneManager;
 
         //// libsphere /////
         void load_sphere_library(const std::string& libraryPath);
         LibraryLoader<std::unique_ptr<Sphere> (*)(const Point&, double, const Color&)> sphereLibraryLoader;
-        std::unique_ptr<Sphere> create_sphere_instance(const Point& center, double radius, const Color& color);
+        std::shared_ptr<Sphere> create_sphere_instance(const Point& center, double radius, const Color& color);
 
         //// libcylinder /////
         void load_cylinder_library(const std::string& libraryPath);
-        LibraryLoader<std::unique_ptr<Cylinder> (*)(const Point&, const Vector&, double, double, const Color&)> cylinderLibraryLoader;
-        std::unique_ptr<Cylinder> create_cylinder_instance(const Point& center, const Vector& axis_direction, double radius, double height, const Color& color);
+        LibraryLoader<std::shared_ptr<Cylinder> (*)(const Point&, const Vector&, double, double, const Color&)> cylinderLibraryLoader;
+        std::shared_ptr<Cylinder> create_cylinder_instance(const Point& center, const Vector& axis_direction, double radius, double height, const Color& color);
 
         //// libplane /////
         void load_plane_library(const std::string& libraryPath);
-        LibraryLoader<std::unique_ptr<Plane> (*)(const char, double, const Color&)> planeLibraryLoader;
-        std::unique_ptr<Plane> create_plane_instance(const char axis, double position, const Color& color);
+        LibraryLoader<std::shared_ptr<Plane> (*)(const char, double, const Color&)> planeLibraryLoader;
+        std::shared_ptr<Plane> create_plane_instance(const char axis, double position, const Color& color);
 
         //// libcone /////
         void load_cone_library(const std::string& libraryPath);
-        LibraryLoader<std::unique_ptr<Cone> (*)(const Point&, const Vector&, double, double, const Color&)> coneLibraryLoader;
-        std::unique_ptr<Cone> create_cone_instance(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color);
+        LibraryLoader<std::shared_ptr<Cone> (*)(const Point&, const Vector&, double, double, const Color&)> coneLibraryLoader;
+        std::shared_ptr<Cone> create_cone_instance(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color);
 
 };
 
