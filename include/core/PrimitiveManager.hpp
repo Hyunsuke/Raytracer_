@@ -16,10 +16,13 @@ template<typename T>
 class PrimitiveManager {
 public:
     PrimitiveManager() {}
+    ~PrimitiveManager() {
+        for (size_t i = 0; i < primitives_.size(); ++i)
+            primitives_[i].release();
 
-    ~PrimitiveManager() {}
+    }
 
-    void addPrimitive(std::shared_ptr<Primitive>&& primitive) {
+    void addPrimitive(std::unique_ptr<Primitive>&& primitive) {
         primitives_.push_back(std::move(primitive));
     }
 
@@ -46,7 +49,7 @@ public:
     }
 
 private:
-    std::vector<std::shared_ptr<Primitive>> primitives_;
+    std::vector<std::unique_ptr<Primitive>> primitives_;
 };
 
 #endif /* !PRIMITIVEMANAGER_HPP_ */

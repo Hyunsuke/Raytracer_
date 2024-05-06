@@ -12,7 +12,7 @@ void Raytracer::load_plane_library(const std::string& libraryPath)
     planeLibraryLoader.loadLibrary(libraryPath);
 }
 
-std::shared_ptr<Plane> Raytracer::create_plane_instance(const char axis, double position, const Color& color) {
+std::unique_ptr<Plane> Raytracer::create_plane_instance(const char axis, double position, const Color& color) {
     auto create_plane = planeLibraryLoader.getFunction("create_plane");
-    return std::shared_ptr<Plane>(create_plane(axis, position, color));
+    return std::unique_ptr<Plane>(create_plane(axis, position, color));
 }

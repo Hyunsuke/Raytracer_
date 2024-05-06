@@ -15,12 +15,6 @@ Raytracer::Raytracer(std::string _file, check_and_parse &parse) : file(_file), _
     load_cone_library("src/plugins/libcone.so");
 }
 
-Raytracer::~Raytracer()
-{
-    vertices.clear();
-    image.clear();
-}
-
 Color Raytracer::ray_color(const Ray& r)
 {
     Intersection intersection;
@@ -48,7 +42,6 @@ int getCameraInfos(std::vector<std::pair<std::string, int>> camera_info, std::st
 
 void Raytracer::run()
 {
-
     std::vector<std::pair<std::string, std::shared_ptr<Primitive>>> primitiveVector = _parse.getPrimitivesVector();
 
     for (size_t i = 0; i < primitiveVector.size(); ++i) {
@@ -62,6 +55,7 @@ void Raytracer::run()
             std::shared_ptr<Plane> PlanePtr = std::dynamic_pointer_cast<Plane>(primitiveVector[i].second);
             planeManager.addPrimitive(create_plane_instance(PlanePtr->getAxis(), PlanePtr->getPosition(),
             Color(PlanePtr->getColorR(), PlanePtr->getColorG(), PlanePtr->getColorB())));
+            // std::cout << PlanePtr->getPosition() << std::endl;
         }
         if (primitiveVector[i].first == "Cylinder") {
             std::shared_ptr<Cylinder> CylinderPtr = std::dynamic_pointer_cast<Cylinder>(primitiveVector[i].second);
