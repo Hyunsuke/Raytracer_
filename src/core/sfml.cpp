@@ -6,6 +6,46 @@
 */
 
 #include "raytracer.hpp"
+#include <thread>
+#include <vector>
+
+void Raytracer::renderSection(int startRow, int endRow, Vector pixel00_loc, Vector pixel_delta_u, Vector pixel_delta_v)
+{
+    for (int j = startRow; j < endRow; j++) {
+        for (int i = 0; i < image_width; i++) {
+            Vector pixel_center = pixel00_loc + (i * pixel_delta_u) + (j * pixel_delta_v);
+            Vector ray_direction = pixel_center - Camera;
+            Ray r(Camera, ray_direction);
+
+            Color pixel_color = ray_color(r);
+            image[j][i] = pixel_color;
+        }
+    }
+}
+
+void Raytracer::create_map_multithreaded(Vector pixel00_loc, Vector pixel_delta_u, Vector pixel_delta_v)
+{
+    const int numThreads = std::thread::hardware_concurrency();
+    std::vector<std::thread> threads;
+
+    int rowsPerThread = image_height / numThreads;
+    int extraRows = image_height % numThreads;
+
+    int startRow = 0;
+    int endRow = rowsPerThread;
+
+    for (int i = 0; i < numThreads; ++i) {
+        if (i == numThreads - 1)
+            endRow += extraRows;
+        threads.emplace_back(&Raytracer::renderSection, this, startRow, endRow, pixel00_loc, pixel_delta_u, pixel_delta_v);
+        startRow = endRow;
+        endRow += rowsPerThread;
+    }
+
+    for (auto& t : threads) {
+        t.join();
+    }
+}
 
 sf::VertexArray Raytracer::conver_map()
 {
@@ -36,16 +76,8 @@ sf::VertexArray Raytracer::create_map()
     Vector viewport_upper_left = Camera - Vector(0, 0, focal_length) - viewport_u/2 - viewport_v/2;
     Vector pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
 
-    for (int j = 0; j < image_height; j++) {
-        for (int i = 0; i < image_width; i++) {
-            Vector pixel_center = pixel00_loc + (i * pixel_delta_u) + (j * pixel_delta_v);
-            Vector ray_direction = pixel_center - Camera;
-            Ray r(Camera, ray_direction);
+    create_map_multithreaded(pixel00_loc, pixel_delta_u, pixel_delta_v); // Utiliser la version multithreaded
 
-            Color pixel_color = ray_color(r);
-            image[j][i] = pixel_color;
-        }
-    }
     return conver_map();
 }
 
