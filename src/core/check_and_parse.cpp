@@ -291,17 +291,17 @@ void print_usage()
     std::cout << "\tSCENE_FILE: scene configuration" << std::endl;
 }
 
-check_and_parse::check_and_parse(int ac, char **av)
+check_and_parse::check_and_parse(int ac, std::string filename)
 {
 
     if (ac != 2) {
         throw RaytracerException("Invalid number of arguments, --help for information", "check_and_parse");
     }
-    if (ac == 2 && std::string(av[1]) == "--help") {
+    if (ac == 2 && std::string(filename) == "--help") {
         print_usage();
         exit(0);
     }
-    if (parse(av[1]) == 1) {
+    if (parse(filename) == 1) {
         throw RaytracerException("Error while parsing the scene file", "check_and_parse");
     }
 }

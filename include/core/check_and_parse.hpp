@@ -16,7 +16,7 @@
 
 class check_and_parse {
     public:
-        check_and_parse(int ac, char **av);
+        check_and_parse(int ac, std::string);
         int parse(std::string scene_file);
         const std::vector<std::pair<std::string, std::shared_ptr<Primitive>>>& getPrimitivesVector() const { return primitivesVector; }
         std::vector<std::pair<std::string, int>> getCameraPos() { return camera_pos;}

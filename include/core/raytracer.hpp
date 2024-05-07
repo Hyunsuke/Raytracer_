@@ -32,6 +32,7 @@
 #include "../Primitives/Plane.hpp"
 #include "../Primitives/Cone.hpp"
 #include "../core/PrimitiveManager.hpp"
+#include "../core/fileWatcher.hpp"
 
 
 class Raytracer {
@@ -43,6 +44,7 @@ class Raytracer {
     private:
         std::string file;
         check_and_parse _parse;
+        FileWatcher fileWatcher;
         sf::RenderWindow _window;
         sf::Event _event;
         Point Camera = Point(0, 0, 0);
@@ -82,6 +84,7 @@ class Raytracer {
         LibraryLoader<std::unique_ptr<Cone> (*)(const Point&, const Vector&, double, double, const Color&)> coneLibraryLoader;
         std::unique_ptr<Cone> create_cone_instance(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color);
 
+        void primitivesClear();
 };
 
 

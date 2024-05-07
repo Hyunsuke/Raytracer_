@@ -7,12 +7,18 @@
 
 #include "raytracer.hpp"
 
-Raytracer::Raytracer(std::string _file, check_and_parse &parse) : file(_file), _parse(parse)
+void loadConfig(const std::string& configFile, libconfig::Config& cfg) {
+    cfg.readFile(configFile.c_str());
+}
+
+Raytracer::Raytracer(std::string _file, check_and_parse &parse) : file(_file), _parse(parse), fileWatcher(_file)
 {
     load_sphere_library("src/plugins/libsphere.so");
     load_cylinder_library("src/plugins/libcylinder.so");
     load_plane_library("src/plugins/libplane.so");
     load_cone_library("src/plugins/libcone.so");
+    // if (fileWatcher.fileModified())
+    //     std::cout << "Modified" << std::endl;
 }
 
 Color Raytracer::ray_color(const Ray& r)
@@ -40,9 +46,18 @@ int getCameraInfos(std::vector<std::pair<std::string, int>> camera_info, std::st
     return 0;
 }
 
+void Raytracer::primitivesClear()
+{
+    sphereManager.clear();
+    coneManager.clear();
+    planeManager.clear();
+    cylinderManager.clear();
+}
+
 void Raytracer::run()
 {
     std::vector<std::pair<std::string, std::shared_ptr<Primitive>>> primitiveVector = _parse.getPrimitivesVector();
+    bool save = true;
 
     for (size_t i = 0; i < primitiveVector.size(); ++i) {
         if (primitiveVector[i].first == "Sphere") {
@@ -84,7 +99,18 @@ void Raytracer::run()
     Camera.Set_Z(getCameraInfos(_parse.getCameraPos(), "z"));
     vertices = create_map();
 
-    while (this->_window.isOpen())
+    while (this->_window.isOpen()) {
         WindowLoop();
-    save_ppm();
+        if (fileWatcher.fileModified()) {
+            save = false;
+            primitivesClear();
+            check_and_parse temp_parse(2, file);
+            _parse = temp_parse;
+            run();
+            break;
+        }
+    }
+    if (save) {
+        save_ppm();
+    }
 }

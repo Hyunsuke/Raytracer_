@@ -18,8 +18,13 @@ public:
     PrimitiveManager() {}
     ~PrimitiveManager() {
         for (size_t i = 0; i < primitives_.size(); ++i)
-            primitives_[i].release();
+            if (primitives_[i])
+                primitives_[i].release();
 
+    }
+
+    void clear() {
+        primitives_.clear();
     }
 
     void addPrimitive(std::unique_ptr<Primitive>&& primitive) {

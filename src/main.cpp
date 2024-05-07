@@ -11,7 +11,7 @@
 int main(int ac, char **av)
 {
     try {
-        check_and_parse parsed(ac, av);
+        check_and_parse parsed(ac, av[1]);
         // std::vector<std::pair<std::string, int>> test;
         // test = parsed.getCameraResolution();
 
