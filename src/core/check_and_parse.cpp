@@ -42,11 +42,11 @@ std::shared_ptr<Primitive> getConeFromPrimitive(const libconfig::Setting& cone)
     int axis_x = 0, axis_y = 0, axis_z = 0;
 
     cone.lookupValue("pos_x", pos_x);
-    myCone->setPosX(pos_x);
+    myCone->setX(pos_x);
     cone.lookupValue("pos_y", pos_y);
-    myCone->setPosY(pos_y);
+    myCone->setY(pos_y);
     cone.lookupValue("pos_z", pos_z);
-    myCone->setPosZ(pos_z);
+    myCone->setZ(pos_z);
     cone.lookupValue("axis_x", axis_x);
     myCone->setAxisX(axis_x);
     cone.lookupValue("axis_y", axis_y);
@@ -82,11 +82,11 @@ std::shared_ptr<Primitive> getCylinderFromPrimitive(const libconfig::Setting& cy
     int axis_x = 0, axis_y = 0, axis_z = 0;
 
     cylinder.lookupValue("pos_x", pos_x);
-    myCylinder->setPosX(pos_x);
+    myCylinder->setX(pos_x);
     cylinder.lookupValue("pos_y", pos_y);
-    myCylinder->setPosY(pos_y);
+    myCylinder->setY(pos_y);
     cylinder.lookupValue("pos_z", pos_z);
-    myCylinder->setPosZ(pos_z);
+    myCylinder->setZ(pos_z);
     cylinder.lookupValue("axis_x", axis_x);
     myCylinder->setAxisX(axis_x);
     cylinder.lookupValue("axis_y", axis_y);

@@ -20,20 +20,23 @@ class Sphere : public Primitive {
         ~Sphere() {}; // Destructor
         Sphere(const Point& center, double radius, const Color& color);
         bool intersect(const Ray& ray, Intersection& intersection) const override;
-        void setX(int x) { _x = x; };
-        void setY(int y) { _y = y; };
-        void setZ(int z) { _z = z; };
+
+        void setX(int x) override { _x = x; };
+        void setY(int y) override { _y = y; };
+        void setZ(int z) override { _z = z; };
+        void setColorR(int cR) override { _color_r = cR; };
+        void setColorG(int cG) override { _color_g = cG; };
+        void setColorB(int cB) override { _color_b = cB; };
+
+        int getX() override { return _x; }
+        int getY() override { return _y; }
+        int getZ() override { return _z; }
+        int getcR() override { return _color_r; }
+        int getcG() override { return _color_g; }
+        int getcB() override { return _color_b; }
+
         void setR(double r) { _r = r; };
-        void setColorR(int cR) { _color_r = cR; };
-        void setColorG(int cG) { _color_g = cG; };
-        void setColorB(int cB) { _color_b = cB; };
-        int getX() { return _x; }
-        int getY() { return _y; }
-        int getZ() { return _z; }
         double getR() { return _r; }
-        int getcR() { return _color_r; }
-        int getcG() { return _color_g; }
-        int getcB() { return _color_b; }
 
     private:
         int _x = 0;

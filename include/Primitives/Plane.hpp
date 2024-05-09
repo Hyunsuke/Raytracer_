@@ -20,11 +20,25 @@ class Plane : public Primitive {
         ~Plane() {}; // Destructor
         Plane(const char axis, double position, const Color& color);
         bool intersect(const Ray& ray, Intersection& intersection) const override;
+
+        void setX(int x) override {(void)x;}
+        void setY(int y) override {(void)y;}
+        void setZ(int z) override {(void)z;}
+        void setColorR(int cR) override { _color_r = cR; }
+        void setColorG(int cG) override { _color_g = cG; }
+        void setColorB(int cB) override { _color_b = cB; }
+
+        int getX() override { return 0; }
+        int getY() override { return 0; }
+        int getZ() override { return 0; }
+        int getcR() override { return _color_r; }
+        int getcG() override { return _color_g; }
+        int getcB() override { return _color_b; }
+
         void setAxis(std::string axis) { _axis = axis; }
         void setPosition(double pos) { _pos = pos;}
-        void setColorR(int cR) { _color_r = cR; }
-        void setColorG(int cG) { _color_g = cG; }
-        void setColorB(int cB) { _color_b = cB; }
+
+        double getPosition() { return _pos;}
         char getAxis() {
             if (_axis.empty())
                 return 'Z';
@@ -32,10 +46,6 @@ class Plane : public Primitive {
                 return 'Z';
             return _axis[0];
         }
-        double getPosition() { return _pos;}
-        int getColorR() { return _color_r; }
-        int getColorG() { return _color_g; }
-        int getColorB() { return _color_b; }
 
     private:
         std::string _axis = "Z";

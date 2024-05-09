@@ -69,13 +69,13 @@ void Raytracer::run()
         if (primitiveVector[i].first == "Plane") {
             std::shared_ptr<Plane> PlanePtr = std::dynamic_pointer_cast<Plane>(primitiveVector[i].second);
             planeManager.addPrimitive(create_plane_instance(PlanePtr->getAxis(), PlanePtr->getPosition(),
-            Color(PlanePtr->getColorR(), PlanePtr->getColorG(), PlanePtr->getColorB())));
+            Color(PlanePtr->getcR(), PlanePtr->getcG(), PlanePtr->getcB())));
             // std::cout << PlanePtr->getPosition() << std::endl;
         }
         if (primitiveVector[i].first == "Cylinder") {
             std::shared_ptr<Cylinder> CylinderPtr = std::dynamic_pointer_cast<Cylinder>(primitiveVector[i].second);
             cylinderManager.addPrimitive(create_cylinder_instance(Point
-            (CylinderPtr->getPosX(), CylinderPtr->getPosY(), CylinderPtr->getPosZ()),
+            (CylinderPtr->getX(), CylinderPtr->getY(), CylinderPtr->getZ()),
             Vector(CylinderPtr->getAxisX(), CylinderPtr->getAxisY(), CylinderPtr->getAxisZ()),
             CylinderPtr->getR(), CylinderPtr->getHeight(),
             Color(CylinderPtr->getcR(), CylinderPtr->getcG(), CylinderPtr->getcB())));
@@ -83,7 +83,7 @@ void Raytracer::run()
         if (primitiveVector[i].first == "Cone") {
             std::shared_ptr<Cone> ConePtr = std::dynamic_pointer_cast<Cone>(primitiveVector[i].second);
             coneManager.addPrimitive(create_cone_instance(Point
-            (ConePtr->getPosX(), ConePtr->getPosY(), ConePtr->getPosZ()),
+            (ConePtr->getX(), ConePtr->getY(), ConePtr->getZ()),
             Vector(ConePtr->getAxisX(), ConePtr->getAxisY(), ConePtr->getAxisZ()),
             M_PI / ConePtr->getAngle(), ConePtr->getHeight(),
             Color(ConePtr->getcR(), ConePtr->getcG(), ConePtr->getcB())));
