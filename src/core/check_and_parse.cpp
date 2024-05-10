@@ -44,8 +44,7 @@ std::shared_ptr<DirectionalLight> getDirectionalFromLights(const libconfig::Sett
     pointLight.lookupValue("z", z);
     myLight->setZ(z);
     if (pointLight.getLength() == 0) {
-        std::cout << "No lights found" << std::endl;
-        return nullptr;
+        throw RaytracerException("No lights found", "check_and_parse");
     }
     return myLight;
 }
@@ -84,8 +83,7 @@ std::shared_ptr<Primitive> getConeFromPrimitive(const libconfig::Setting& cone)
     color.lookupValue("b", color_b);
     myCone->setColorB(color_b);
     if (cone.getLength() == 0) {
-        // std::cout << "No planes found" << std::endl;
-        return nullptr;
+        throw RaytracerException("No planes found", "check_and_parse");
     }
     return myCone;
 }
@@ -124,7 +122,7 @@ std::shared_ptr<Primitive> getCylinderFromPrimitive(const libconfig::Setting& cy
     color.lookupValue("b", color_b);
     myCylinder->setColorB(color_b);
     if (cylinder.getLength() == 0) {
-        // std::cout << "No planes found" << std::endl;
+        throw RaytracerException("No cylinders found", "check_and_parse");
         return nullptr;
     }
     return myCylinder;
@@ -179,6 +177,7 @@ std::shared_ptr<Primitive> getSphereFromPrimitive(const libconfig::Setting& sphe
     color.lookupValue("b", color_b);
     mySphere->setColorB(color_b);
     if (sphere.getLength() == 0) {
+        throw RaytracerException("No spheres found", "check_and_parse");
         // std::cout << "No spheres found" << std::endl;
         return nullptr;
     }
