@@ -21,20 +21,53 @@ Raytracer::Raytracer(std::string _file, check_and_parse &parse) : file(_file), _
     //     std::cout << "Modified" << std::endl;
 }
 
+Color operator*(const Color& c, double scalar) {
+    return Color(c.r * scalar, c.g * scalar, c.b * scalar);
+}
+
+Color& operator+=(Color& lhs, const Color& rhs)
+{
+    lhs.r += rhs.r;
+    lhs.g += rhs.g;
+    lhs.b += rhs.b;
+    return lhs;
+}
+
+Color& operator/=(Color& color, std::size_t scalar)
+{
+    color.r /= scalar;
+    color.g /= scalar;
+    color.b /= scalar;
+    return color;
+}
+
 Color Raytracer::ray_color(const Ray& r)
 {
+    std::vector<Point> light = {Point(-2.0, 0.0, 1.0)};
     Intersection intersection;
+    Color final_color(0, 0, 0);
 
-    if (sphereManager.findClosestIntersection(r, intersection) ||
-        cylinderManager.findClosestIntersection(r, intersection) ||
-        coneManager.findClosestIntersection(r, intersection) ||
-        planeManager.findClosestIntersection(r, intersection)) {
-        return intersection.getColor() / 255;
-    } else {
-        Vector unit_direction = unit_vector(r.direction());
-        double t = 0.5 * (unit_direction.y + 1.0);
-        return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
+    for (const Point& lightPosition : light) {
+        int lightIntensity = 1.6;
+
+        if (sphereManager.findClosestIntersection(r, intersection) ||
+            cylinderManager.findClosestIntersection(r, intersection) ||
+            coneManager.findClosestIntersection(r, intersection) ||
+            planeManager.findClosestIntersection(r, intersection)) {
+            Vector light_direction = unit_vector(lightPosition - intersection.getPosition());
+            double cos_theta = dot(intersection.getNormal(), light_direction);
+            cos_theta = std::max(0.0, cos_theta);
+            Color shaded_color = intersection.getColor() * (cos_theta / 255) * lightIntensity;
+            final_color += shaded_color;
+        } else {
+            Vector unit_direction = unit_vector(r.direction());
+            double t = 0.5 * (unit_direction.y + 1.0);
+            final_color += (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
+        }
     }
+
+    final_color /= light.size();
+    return final_color;
 }
 
 int getCameraInfos(std::vector<std::pair<std::string, int>> camera_info, std::string key)
