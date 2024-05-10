@@ -21,26 +21,6 @@ Raytracer::Raytracer(std::string _file, check_and_parse &parse) : file(_file), _
     //     std::cout << "Modified" << std::endl;
 }
 
-Color operator*(const Color& c, double scalar) {
-    return Color(c.r * scalar, c.g * scalar, c.b * scalar);
-}
-
-Color& operator+=(Color& lhs, const Color& rhs)
-{
-    lhs.r += rhs.r;
-    lhs.g += rhs.g;
-    lhs.b += rhs.b;
-    return lhs;
-}
-
-Color& operator/=(Color& color, std::size_t scalar)
-{
-    color.r /= scalar;
-    color.g /= scalar;
-    color.b /= scalar;
-    return color;
-}
-
 Color Raytracer::ray_color(const Ray& r)
 {
     Intersection intersection;

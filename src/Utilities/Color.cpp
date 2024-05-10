@@ -34,3 +34,18 @@ Color Color::operator/(double scalar) const
 {
     return Color(r / scalar, g / scalar, b / scalar);
 }
+
+Color& Color::operator+=(const Color& rhs)
+{
+    r += rhs.r;
+    g += rhs.g;
+    b += rhs.b;
+    return *this;
+}
+
+Color& Color::operator/=(double scalar) {
+    r /= scalar;
+    g /= scalar;
+    b /= scalar;
+    return *this;
+}
