@@ -21,6 +21,8 @@
 #include <memory>
 
 #include "raytracerException.hpp"
+#include "../Lights/DirectionalLight.hpp"
+#include "../Interfaces/ILight.hpp"
 #include "check_and_parse.hpp"
 #include "../Utilities/Color.hpp"
 #include "../Utilities/Ray.hpp"
@@ -57,6 +59,10 @@ class Raytracer {
         PrimitiveManager<Cylinder> cylinderManager;
         PrimitiveManager<Plane> planeManager;
         PrimitiveManager<Cone> coneManager;
+
+        std::vector<Point> directional_lights;
+        int lightIntensity = 0;
+        int ambientLight = 0;
 
         Color ray_color(const Ray &r);
         sf::VertexArray conver_map();

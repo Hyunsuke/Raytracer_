@@ -8,6 +8,8 @@
 #ifndef RAYTRACER_HPP_
 #define RAYTRACER_HPP_
 
+#include "Lights/DirectionalLight.hpp"
+#include "Interfaces/ILight.hpp"
 #include "core/check_and_parse.hpp"
 #include "core/raytracer.hpp"
 #include "core/raytracerException.hpp"

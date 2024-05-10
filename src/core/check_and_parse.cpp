@@ -33,6 +33,23 @@ std::shared_ptr<Light> getLightsFromLight(const libconfig::Setting& pointLight, 
 }
 */
 
+std::shared_ptr<DirectionalLight> getDirectionalFromLights(const libconfig::Setting& pointLight)
+{
+    std::shared_ptr<DirectionalLight> myLight = std::make_unique<DirectionalLight>();
+    double x = 0, y = 0, z = 0;
+    pointLight.lookupValue("x", x);
+    myLight->setX(x);
+    pointLight.lookupValue("y", y);
+    myLight->setY(y);
+    pointLight.lookupValue("z", z);
+    myLight->setZ(z);
+    if (pointLight.getLength() == 0) {
+        std::cout << "No lights found" << std::endl;
+        return nullptr;
+    }
+    return myLight;
+}
+
 std::shared_ptr<Primitive> getConeFromPrimitive(const libconfig::Setting& cone)
 {
     std::shared_ptr<Cone> myCone = std::make_unique<Cone>();
@@ -204,9 +221,6 @@ int check_and_parse::parse (std::string scene_file)
         camera_rotation.push_back(std::make_pair("y", y));
         rotation.lookupValue("z", z);
         camera_rotation.push_back(std::make_pair("z", z));
-            //Fov
-        const libconfig::Setting& fieldOfView = camera.lookup("fieldOfView");
-        fieldOfView.lookupValue("fieldOfView", camera_fov);
 
         //-- Get forms --//
         const libconfig::Setting& primitives = cfg.lookup("primitives");
@@ -249,21 +263,19 @@ int check_and_parse::parse (std::string scene_file)
             }
         }
 
-    /*
         // Lights
         const libconfig::Setting& lights = cfg.lookup("lights");
-        double ambient = 0, diffuse = 0;
-        lights.lookupValue("ambient", ambient); // Chercher c'est quoi
-        lights.lookupValue("diffuse", diffuse); // Chercher c'est quoi
-        // std::cout << "Ambient Light: " << ambient << ", Diffuse Light: " << diffuse << std::endl;
+        int ambient = 0;
+        lights.lookupValue("ambient", ambient);
+        ambient_light = ambient;
 
-        const libconfig::Setting& pointLights = lights.lookup("point");
-        for (int i = 0; i < pointLights.getLength(); ++i)
-        {
-            const libconfig::Setting& pointLight = pointLights[i];
-            _light.push_back(getLightsFromLight(pointLight, i));
+        const libconfig::Setting& pointLights = lights.lookup("directional");
+        if (lights.exists("directional")) {
+            for (int i = 0; i < pointLights.getLength(); ++i) {
+                const libconfig::Setting& pointLight = pointLights[i];
+                directionalVector.push_back(getDirectionalFromLights(pointLight));
+            }
         }
-    */
     }
     catch(const libconfig::FileIOException &fioex)
     {

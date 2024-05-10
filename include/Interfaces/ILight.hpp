@@ -14,7 +14,7 @@
 class Light {
 public:
     virtual ~Light() {}
-    virtual Color intensityAt(const Point& point) const = 0;
+    // virtual Color intensityAt(const Point& point) const = 0;
 };
 
 #endif /* !ILIGHT_HPP_ */

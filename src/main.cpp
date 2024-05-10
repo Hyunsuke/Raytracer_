@@ -10,6 +10,10 @@
 
 int main(int ac, char **av)
 {
+    if (ac != 2) {
+        std::cerr << "Invalid number of arguments, --help for information" << std::endl;
+        return 84;
+    }
     try {
         check_and_parse parsed(ac, av[1]);
         // std::vector<std::pair<std::string, int>> test;

@@ -43,13 +43,10 @@ Color& operator/=(Color& color, std::size_t scalar)
 
 Color Raytracer::ray_color(const Ray& r)
 {
-    std::vector<Point> light = {Point(-2.0, 0.0, 1.0)};
     Intersection intersection;
     Color final_color(0, 0, 0);
 
-    for (const Point& lightPosition : light) {
-        int lightIntensity = 1.6;
-
+    for (const Point& lightPosition : directional_lights) {
         if (sphereManager.findClosestIntersection(r, intersection) ||
             cylinderManager.findClosestIntersection(r, intersection) ||
             coneManager.findClosestIntersection(r, intersection) ||
@@ -57,7 +54,7 @@ Color Raytracer::ray_color(const Ray& r)
             Vector light_direction = unit_vector(lightPosition - intersection.getPosition());
             double cos_theta = dot(intersection.getNormal(), light_direction);
             cos_theta = std::max(0.0, cos_theta);
-            Color shaded_color = intersection.getColor() * (cos_theta / 255) * lightIntensity;
+            Color shaded_color = intersection.getColor() * (cos_theta / 255);
             final_color += shaded_color;
         } else {
             Vector unit_direction = unit_vector(r.direction());
@@ -66,7 +63,7 @@ Color Raytracer::ray_color(const Ray& r)
         }
     }
 
-    final_color /= light.size();
+    final_color /= directional_lights.size();
     return final_color;
 }
 
@@ -91,7 +88,10 @@ void Raytracer::run()
 {
     std::vector<std::pair<std::string, std::shared_ptr<Primitive>>> primitiveVector = _parse.getPrimitivesVector();
     bool save = true;
+    std::vector<std::shared_ptr<DirectionalLight>> directionalVector = _parse.getDirectionalVector();
 
+    for (size_t i = 0; i < directionalVector.size(); i++)
+        directional_lights.push_back(Point(directionalVector[i]->getX(), directionalVector[i]->getY(), directionalVector[i]->getZ()));
     for (size_t i = 0; i < primitiveVector.size(); ++i) {
         if (primitiveVector[i].first == "Sphere") {
             std::shared_ptr<Sphere> SpherePtr = std::dynamic_pointer_cast<Sphere>(primitiveVector[i].second);
