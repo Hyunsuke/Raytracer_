@@ -2,4 +2,4 @@
 *.o
 raytracer
 *.so
-src/screenshots/last_screenshot.ppm
+src/screenshots/*.ppm
