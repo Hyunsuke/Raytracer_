@@ -11,6 +11,7 @@
 #include "../Interfaces/IPrimitive.hpp"
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 template<typename T>
 class PrimitiveManager {
@@ -56,5 +57,30 @@ public:
 private:
     std::vector<std::unique_ptr<Primitive>> primitives_;
 };
+
+template<typename... Managers>
+bool findClosestIntersectionAmong(const Ray& ray, Intersection& intersection, const Managers&... managers) {
+    bool hit = false;
+    Intersection closest_intersection;
+
+    auto checkIntersection = [&](const auto& manager) {
+        Intersection temp_intersection;
+        bool current_hit = manager.findClosestIntersection(ray, temp_intersection);
+
+        if (current_hit && (!hit || temp_intersection.getT() < closest_intersection.getT())) {
+            closest_intersection = temp_intersection;
+            hit = true;
+        }
+    };
+
+    (checkIntersection(managers), ...);
+
+    if (hit) {
+        intersection = closest_intersection;
+        return true;
+    } else {
+        return false;
+    }
+}
 
 #endif /* !PRIMITIVEMANAGER_HPP_ */

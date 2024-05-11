@@ -31,8 +31,22 @@ bool Cone::intersect(const Ray& ray, Intersection& intersection) const {
             return true;
         }
     }
+    double t_base = -dot(ray.origin() - apex_, axis_direction_) / dot(ray.direction(), axis_direction_);
+    if (t_base > 0) {
+        Point base_intersection = ray.at(t_base);
+        if ((base_intersection - apex_).length_squared() <= tan(angle_) * tan(angle_) * (base_intersection - apex_).length_squared()) {
+            intersection.setT(t_base);
+            intersection.setPosition(base_intersection);
+            intersection.setNormal(1.0 * axis_direction_);
+            intersection.setColor(color_);
+            return true;
+        }
+    }
     return false;
 }
+
+
+
 
 
 extern "C" std::unique_ptr<Cone> create_cone(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color)

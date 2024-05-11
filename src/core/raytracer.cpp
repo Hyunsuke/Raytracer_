@@ -27,10 +27,9 @@ Color Raytracer::ray_color(const Ray& r)
     Color final_color(0, 0, 0);
 
     for (const Point& lightPosition : directional_lights) {
-        if (sphereManager.findClosestIntersection(r, intersection) ||
-            cylinderManager.findClosestIntersection(r, intersection) ||
-            coneManager.findClosestIntersection(r, intersection) ||
-            planeManager.findClosestIntersection(r, intersection)) {
+        bool found_intersection = findClosestIntersectionAmong(r, intersection, sphereManager, cylinderManager, coneManager, planeManager);
+
+        if (found_intersection) {
             Vector light_direction = unit_vector(lightPosition - intersection.getPosition());
             double cos_theta = dot(intersection.getNormal(), light_direction);
             cos_theta = std::max(0.0, cos_theta);
