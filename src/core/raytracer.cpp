@@ -63,6 +63,17 @@ void Raytracer::primitivesClear()
     cylinderManager.clear();
 }
 
+Vector axisToVector(std::string key)
+{
+    if (key == "X") {
+        return Vector(1, 0, 0);
+    } else if (key == "Y") {
+        return Vector(0, 1, 0);
+    } else {
+        return Vector(0, 0, 1);
+    }
+}
+
 void Raytracer::run()
 {
     std::vector<std::pair<std::string, std::shared_ptr<Primitive>>> primitiveVector = _parse.getPrimitivesVector();
@@ -82,7 +93,7 @@ void Raytracer::run()
             std::shared_ptr<Plane> PlanePtr = std::dynamic_pointer_cast<Plane>(primitiveVector[i].second);
             planeManager.addPrimitive(create_plane_instance(PlanePtr->getAxis(), PlanePtr->getPosition(),
             Color(PlanePtr->getcR(), PlanePtr->getcG(), PlanePtr->getcB())));
-            // std::cout << PlanePtr->getPosition() << std::endl;
+            // axisToVector(PlanePtr->getRotationAxis()), PlanePtr->getRotationDegree()));
         }
         if (primitiveVector[i].first == "Cylinder") {
             std::shared_ptr<Cylinder> CylinderPtr = std::dynamic_pointer_cast<Cylinder>(primitiveVector[i].second);
@@ -91,7 +102,8 @@ void Raytracer::run()
             Vector(CylinderPtr->getAxisX(), CylinderPtr->getAxisY(), CylinderPtr->getAxisZ()),
             CylinderPtr->getR(), CylinderPtr->getHeight(),
             Color(CylinderPtr->getcR(), CylinderPtr->getcG(), CylinderPtr->getcB()),
-            Vector(0, 0, 0), 0));
+            axisToVector(CylinderPtr->getRotationAxis()), CylinderPtr->getRotationDegree()));
+            // std::cout << CylinderPtr->getRotationX() << ", " << CylinderPtr->getRotationY() << ", " << CylinderPtr->getRotationZ() << ", " << CylinderPtr->getRotationDegree() << std::endl;
         }
         if (primitiveVector[i].first == "Cone") {
             std::shared_ptr<Cone> ConePtr = std::dynamic_pointer_cast<Cone>(primitiveVector[i].second);
@@ -100,7 +112,8 @@ void Raytracer::run()
             Vector(ConePtr->getAxisX(), ConePtr->getAxisY(), ConePtr->getAxisZ()),
             M_PI / ConePtr->getAngle(), ConePtr->getHeight(),
             Color(ConePtr->getcR(), ConePtr->getcG(), ConePtr->getcB()),
-            Vector(0, 0, 0), 0));
+            axisToVector(ConePtr->getRotationAxis()), ConePtr->getRotationDegree()));
+            // std::cout << ConePtr->getRotationDegree() << std::endl;
         }
     }
 

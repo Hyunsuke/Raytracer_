@@ -47,6 +47,10 @@ class Plane : public Primitive {
                 return 'Z';
             return _axis[0];
         }
+        void setRotationAxis(std::string axis) { _rotation_axis = axis; }
+        std::string getRotationAxis() { return _rotation_axis; }
+        void setRotationDegree(double rD) { _rotation_degree = rD; }
+        double getRotationDegree() { return _rotation_degree; }
 
     private:
         std::string _axis = "Z";
@@ -54,6 +58,8 @@ class Plane : public Primitive {
         int _color_r = 0;
         int _color_g = 0;
         int _color_b = 0;
+        std::string _rotation_axis = "Z";
+        double _rotation_degree = 0;
     // 16 private
         char axis_;
         double position_;

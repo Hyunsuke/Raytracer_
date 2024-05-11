@@ -56,6 +56,15 @@ std::shared_ptr<Primitive> getConeFromPrimitive(const libconfig::Setting& cone)
     myCone->setColorG(color_g);
     color.lookupValue("b", color_b);
     myCone->setColorB(color_b);
+
+    std::string rotation_axis = "Z";
+    cone.lookupValue("rotation", rotation_axis);
+    myCone->setRotationAxis(rotation_axis);
+
+    double rotation_degree = 0;
+    cone.lookupValue("rotation_degree", rotation_degree);
+    myCone->setRotationDegree(rotation_degree);
+
     if (cone.getLength() == 0) {
         throw RaytracerException("No planes found", "check_and_parse");
     }
@@ -95,6 +104,14 @@ std::shared_ptr<Primitive> getCylinderFromPrimitive(const libconfig::Setting& cy
     myCylinder->setColorG(color_g);
     color.lookupValue("b", color_b);
     myCylinder->setColorB(color_b);
+
+    std::string rotation_axis = "Z";
+    cylinder.lookupValue("rotation", rotation_axis);
+    myCylinder->setRotationAxis(rotation_axis);
+
+    double rotation_degree = 0;
+    cylinder.lookupValue("rotation_degree", rotation_degree);
+    myCylinder->setRotationDegree(rotation_degree);
     if (cylinder.getLength() == 0) {
         throw RaytracerException("No cylinders found", "check_and_parse");
         return nullptr;
@@ -120,6 +137,14 @@ std::shared_ptr<Primitive> getPlanesFromPrimitive(const libconfig::Setting& plan
     myPlane->setColorG(color_g);
     color.lookupValue("b", color_b);
     myPlane->setColorB(color_b);
+
+    std::string rotation_axis = "Z";
+    plane.lookupValue("rotation", rotation_axis);
+    myPlane->setRotationAxis(rotation_axis);
+
+    double rotation_degree = 0;
+    plane.lookupValue("rotation_degree", rotation_degree);
+    myPlane->setRotationDegree(rotation_degree);
     if (plane.getLength() == 0) {
         // std::cout << "No planes found" << std::endl;
         return nullptr;

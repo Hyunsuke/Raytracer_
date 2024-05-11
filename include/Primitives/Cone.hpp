@@ -48,6 +48,12 @@ class Cone : public Primitive {
         double getAngle() { return _angle; }
         double getHeight() { return _height; }
 
+
+        void setRotationAxis(std::string axis) { _rotation_axis = axis; }
+        std::string getRotationAxis() { return _rotation_axis; }
+        void setRotationDegree(double rD) { _rotation_degree = rD; };
+        double getRotationDegree() { return _rotation_degree; }
+
     private:
         int _pos_x = 0;
         int _pos_y = 0;
@@ -60,6 +66,8 @@ class Cone : public Primitive {
         int _color_r;
         int _color_g;
         int _color_b;
+        double _rotation_degree = 0;
+        std::string _rotation_axis;
     // 16 Private
         Point apex_;
         Vector axis_direction_;

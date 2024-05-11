@@ -47,6 +47,11 @@ public:
     int getAxisZ() { return _axis_z; }
     double getR() { return _r; }
     double getHeight() { return _height; }
+
+    void setRotationAxis(std::string axis) { _rotation_axis = axis; }
+    std::string getRotationAxis() { return _rotation_axis; }
+    void setRotationDegree(double rD) { _rotation_degree = rD; };
+    double getRotationDegree() { return _rotation_degree; }
 private:
     int _pos_x = 0;
     int _pos_y = 0;
@@ -59,6 +64,8 @@ private:
     int _color_r;
     int _color_g;
     int _color_b;
+    std::string _rotation_axis;
+    double _rotation_degree = 0;
 // 16 Private
     Point base_center_;
     Vector axis_direction_;
