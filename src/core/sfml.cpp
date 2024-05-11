@@ -81,30 +81,30 @@ sf::VertexArray Raytracer::create_map()
     return conver_map();
 }
 
-void Raytracer::WindowLoop()
-{
-    while (this->_window.pollEvent(this->_event)) {
-        if (this->_event.type == sf::Event::Closed)
-            this->_window.close();
-    }
-    Point PastCam = Camera;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        Camera.Set_X(Camera.Get_X() + 0.1);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        Camera.Set_X(Camera.Get_X() - 0.1);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        Camera.Set_Y(Camera.Get_Y() + 0.1);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        Camera.Set_Y(Camera.Get_Y() - 0.1);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-        Camera.Set_Z(Camera.Get_Z() - 0.1);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        Camera.Set_Z(Camera.Get_Z() + 0.1);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-        this->_window.close();
-    this->_window.clear();
-    if (PastCam != Camera)
-        vertices = create_map();
-    this->_window.draw(vertices);
-    this->_window.display();
-}
+// void Raytracer::WindowLoop()
+// {
+//     while (this->_window.pollEvent(this->_event)) {
+//         if (this->_event.type == sf::Event::Closed)
+//             this->_window.close();
+//     }
+//     Point PastCam = Camera;
+//     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+//         Camera.Set_X(Camera.Get_X() + 0.1);
+//     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+//         Camera.Set_X(Camera.Get_X() - 0.1);
+//     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+//         Camera.Set_Y(Camera.Get_Y() + 0.1);
+//     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+//         Camera.Set_Y(Camera.Get_Y() - 0.1);
+//     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+//         Camera.Set_Z(Camera.Get_Z() - 0.1);
+//     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+//         Camera.Set_Z(Camera.Get_Z() + 0.1);
+//     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+//         this->_window.close();
+//     this->_window.clear();
+//     if (PastCam != Camera)
+//         vertices = create_map();
+//     this->_window.draw(vertices);
+//     this->_window.display();
+// }

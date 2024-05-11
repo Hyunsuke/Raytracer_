@@ -109,10 +109,12 @@ void Raytracer::run()
     Camera.Set_X(getCameraInfos(_parse.getCameraPos(), "x"));
     Camera.Set_Y(getCameraInfos(_parse.getCameraPos(), "y"));
     Camera.Set_Z(getCameraInfos(_parse.getCameraPos(), "z"));
-    vertices = create_map();
+    Observer observer(_window, vertices, Camera);
 
     while (this->_window.isOpen()) {
-        WindowLoop();
+        if (observer.WindowLoop())
+            vertices = create_map();
+
         if (fileWatcher.fileModified()) {
             save = false;
             primitivesClear();

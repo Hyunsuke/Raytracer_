@@ -69,7 +69,6 @@ class Raytracer {
         sf::VertexArray create_map();
         void renderSection(int startRow, int endRow, Vector pixel00_loc, Vector pixel_delta_u, Vector pixel_delta_v);
         void create_map_multithreaded(Vector pixel00_loc, Vector pixel_delta_u, Vector pixel_delta_v);
-        void WindowLoop();
         void save_ppm();
 
         //// libsphere /////

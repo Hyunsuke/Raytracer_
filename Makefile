@@ -11,7 +11,7 @@ PRIMITIVESDIRS =	$(SRCDIR)/Primitives/Sphere \
 					$(SRCDIR)/Primitives/Plane	\
 					$(SRCDIR)/Primitives/Cone	\
 
-SRCDIRS = $(SRCDIR) $(SRCDIR)/Utilities $(SRCDIR)/core $(SRCDIR)/core/lib $(PRIMITIVESDIRS)
+SRCDIRS = $(SRCDIR) $(SRCDIR)/Utilities $(SRCDIR)/core $(SRCDIR)/core/lib $(SRCDIR)/core/Observer $(PRIMITIVESDIRS)
 SRC_ALL = $(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.cpp))
 SRC_OBJ = $(SRC_ALL:.cpp=.o)
 
