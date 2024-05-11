@@ -48,3 +48,11 @@ float Point::Get_Z() const {
 bool Point::operator!=(const Point& other) const {
     return x != other.x || y != other.y || z != other.z;
 }
+
+
+Point Point::operator-=(const Vector& v) {
+    x -= v.x;
+    y -= v.y;
+    z -= v.z;
+    return *this;
+}

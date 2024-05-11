@@ -14,7 +14,8 @@
 class Primitive {
     public:
         virtual ~Primitive() {}
-        virtual bool intersect(const Ray& ray, Intersection& intersection) const = 0;
+        virtual bool intersect(const Ray& ray, Intersection& intersection) = 0;
+        virtual void rotate(double angle, const Vector& axis) = 0;
 
         virtual void setX(int x) = 0;
         virtual void setY(int y) = 0;

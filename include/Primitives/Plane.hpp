@@ -19,7 +19,8 @@ class Plane : public Primitive {
         Plane() = default; // Parser constructor
         ~Plane() {}; // Destructor
         Plane(const char axis, double position, const Color& color);
-        bool intersect(const Ray& ray, Intersection& intersection) const override;
+        bool intersect(const Ray& ray, Intersection& intersection) override;
+        void rotate(double angle, const Vector& axis) override;
 
         void setX(int x) override {(void)x;}
         void setY(int y) override {(void)y;}

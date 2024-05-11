@@ -78,8 +78,8 @@ class Raytracer {
 
         //// libcylinder /////
         void load_cylinder_library(const std::string& libraryPath);
-        LibraryLoader<std::unique_ptr<Cylinder> (*)(const Point&, const Vector&, double, double, const Color&)> cylinderLibraryLoader;
-        std::unique_ptr<Cylinder> create_cylinder_instance(const Point& center, const Vector& axis_direction, double radius, double height, const Color& color);
+        LibraryLoader<std::unique_ptr<Cylinder> (*)(const Point&, const Vector&, double, double, const Color&, const Vector&, double)> cylinderLibraryLoader;
+        std::unique_ptr<Cylinder> create_cylinder_instance(const Point& center, const Vector& axis_direction, double radius, double height, const Color& color, const Vector& rotation_axis, double rotation_angle_deg);
 
         //// libplane /////
         void load_plane_library(const std::string& libraryPath);
@@ -88,8 +88,8 @@ class Raytracer {
 
         //// libcone /////
         void load_cone_library(const std::string& libraryPath);
-        LibraryLoader<std::unique_ptr<Cone> (*)(const Point&, const Vector&, double, double, const Color&)> coneLibraryLoader;
-        std::unique_ptr<Cone> create_cone_instance(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color);
+        LibraryLoader<std::unique_ptr<Cone> (*)(const Point&, const Vector&, double, double, const Color&, const Vector&, double)> coneLibraryLoader;
+        std::unique_ptr<Cone> create_cone_instance(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color, const Vector& rotation_axis, double rotation_angle_deg);
 
         void primitivesClear();
 };

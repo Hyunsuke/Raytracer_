@@ -8,9 +8,16 @@
 #include "../../../include/Primitives/Sphere.hpp"
 
 Sphere::Sphere(const Point& center, double radius, const Color& color)
-    : center_(center), radius_(radius), color_(color) {}
+    : center_(center), radius_(radius), color_(color)
+{}
 
-bool Sphere::intersect(const Ray& ray, Intersection& intersection) const
+void Sphere::rotate(double angle, const Vector& axis)
+{
+    (void)angle;
+    (void)axis;
+}
+
+bool Sphere::intersect(const Ray& ray, Intersection& intersection)
 {
     Vector oc = ray.origin() - center_;
     double a = dot(ray.direction(), ray.direction());
@@ -20,7 +27,6 @@ bool Sphere::intersect(const Ray& ray, Intersection& intersection) const
     const double EPSILON = 1e-6;
 
     if (discriminant > 0) {
-        // Intersection détectée, déterminez les points d'intersection
         double t = (-b - sqrt(discriminant)) / (2.0 * a);
         if (t > EPSILON) {
             intersection.setT(t);

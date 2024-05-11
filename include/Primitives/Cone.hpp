@@ -18,8 +18,9 @@
 class Cone : public Primitive {
     public:
         Cone() = default; // Parser constructor
-        Cone(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color);
-        bool intersect(const Ray& ray, Intersection& intersection) const override;
+        Cone(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color, const Vector& rotation_axis, double rotation_angle_deg);
+        bool intersect(const Ray& ray, Intersection& intersection) override;
+        void rotate(double angle, const Vector& axis) override;
 
         void setX(int x) override { _pos_x = x; };
         void setY(int y) override { _pos_y = y; };
@@ -67,6 +68,6 @@ class Cone : public Primitive {
         Color color_;
 };
 
-extern "C" std::unique_ptr<Cone> create_cone(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color);
+extern "C" std::unique_ptr<Cone> create_cone(const Point& apex, const Vector& axis_direction, double angle, double height, const Color& color, const Vector& rotation_axis, double rotation_angle_deg);
 
 #endif /* !CONE_HPP_ */

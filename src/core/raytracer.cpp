@@ -90,7 +90,8 @@ void Raytracer::run()
             (CylinderPtr->getX(), CylinderPtr->getY(), CylinderPtr->getZ()),
             Vector(CylinderPtr->getAxisX(), CylinderPtr->getAxisY(), CylinderPtr->getAxisZ()),
             CylinderPtr->getR(), CylinderPtr->getHeight(),
-            Color(CylinderPtr->getcR(), CylinderPtr->getcG(), CylinderPtr->getcB())));
+            Color(CylinderPtr->getcR(), CylinderPtr->getcG(), CylinderPtr->getcB()),
+            Vector(0, 0, 0), 0));
         }
         if (primitiveVector[i].first == "Cone") {
             std::shared_ptr<Cone> ConePtr = std::dynamic_pointer_cast<Cone>(primitiveVector[i].second);
@@ -98,7 +99,8 @@ void Raytracer::run()
             (ConePtr->getX(), ConePtr->getY(), ConePtr->getZ()),
             Vector(ConePtr->getAxisX(), ConePtr->getAxisY(), ConePtr->getAxisZ()),
             M_PI / ConePtr->getAngle(), ConePtr->getHeight(),
-            Color(ConePtr->getcR(), ConePtr->getcG(), ConePtr->getcB())));
+            Color(ConePtr->getcR(), ConePtr->getcG(), ConePtr->getcB()),
+            Vector(0, 0, 0), 0));
         }
     }
 

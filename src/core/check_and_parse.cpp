@@ -38,11 +38,11 @@ std::shared_ptr<Primitive> getConeFromPrimitive(const libconfig::Setting& cone)
     cone.lookupValue("pos_z", pos_z);
     myCone->setZ(pos_z);
     cone.lookupValue("axis_x", axis_x);
-    myCone->setAxisX(axis_x);
+    myCone->setAxisX(-axis_x);
     cone.lookupValue("axis_y", axis_y);
-    myCone->setAxisY(axis_y);
+    myCone->setAxisY(-axis_y);
     cone.lookupValue("axis_z", axis_z);
-    myCone->setAxisZ(axis_z);
+    myCone->setAxisZ(-axis_z);
     cone.lookupValue("angle", angle);
     myCone->setAngle(angle);
     cone.lookupValue("height", height);

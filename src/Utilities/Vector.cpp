@@ -25,6 +25,15 @@ void Vector::normalize() {
     z /= len;
 }
 
+Vector Vector::normalized() const {
+    float len = length();
+    return Vector(x / len, y / len, z / len);
+}
+
+bool Vector::operator==(const Vector& other) const {
+    return x == other.x && y == other.y && z == other.z;
+}
+
 Vector operator+(const Vector& u, const Vector& v) {
     return Vector(u.x + v.x, u.y + v.y, u.z + v.z);
 }
@@ -69,4 +78,8 @@ Vector operator-(const Point& p, const Vector& v) {
 
 Vector operator-(const Vector& v, const Point& p) {
     return Vector(v.x - p.x, v.y - p.y, v.z - p.z);
+}
+
+Vector Vector::operator-() const {
+    return Vector(-x, -y, -z);
 }

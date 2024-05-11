@@ -9,10 +9,16 @@
 
 Plane::Plane(const char axis, double position, const Color& color)
         : axis_(axis), position_(position), color_(color)
+{}
+
+void Plane::rotate(double angle, const Vector& axis)
 {
+    (void)angle;
+    (void)axis;
 }
 
-bool Plane::intersect(const Ray& ray, Intersection& intersection) const {
+bool Plane::intersect(const Ray& ray, Intersection& intersection)
+{
     Vector normal;
     double plane_coord;
     if (axis_ == 'X') {

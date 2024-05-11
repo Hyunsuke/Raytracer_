@@ -21,10 +21,13 @@ public:
     float length() const;
     float length_squared() const;
     void normalize();
+    Vector normalized() const;
 
     friend Vector operator-(const Vector& v, const Point& p);
     friend Vector operator-(const Point& p, const Vector& v);
     friend Vector operator-(const Point& p1, const Point& p2);
+    bool operator==(const Vector& other) const;
+    Vector operator-() const;
 };
 
 Vector operator+(const Vector& u, const Vector& v);

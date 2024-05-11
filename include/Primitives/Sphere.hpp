@@ -19,7 +19,8 @@ class Sphere : public Primitive {
         Sphere() = default; // Parser constructor
         ~Sphere() {}; // Destructor
         Sphere(const Point& center, double radius, const Color& color);
-        bool intersect(const Ray& ray, Intersection& intersection) const override;
+        bool intersect(const Ray& ray, Intersection& intersection) override;
+        void rotate(double angle, const Vector& axis) override;
 
         void setX(int x) override { _x = x; };
         void setY(int y) override { _y = y; };
