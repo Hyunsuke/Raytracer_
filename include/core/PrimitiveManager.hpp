@@ -58,6 +58,8 @@ private:
     std::vector<std::unique_ptr<Primitive>> primitives_;
 };
 
+
+
 template<typename... Managers>
 bool findClosestIntersectionAmong(const Ray& ray, Intersection& intersection, const Managers&... managers) {
     bool hit = false;
