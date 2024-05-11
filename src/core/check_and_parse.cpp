@@ -7,32 +7,6 @@
 
 #include "raytracer.hpp"
 
-/*
-
-void Lights::setValues(int x, int y, int z)
-{
-    _x = x;
-    _y = y;
-    _z = z;
-}
-
-std::shared_ptr<Light> getLightsFromLight(const libconfig::Setting& pointLight, int i)
-{
-    std::shared_ptr<Light> myLight = std::make_unique<Light>();
-    int x = 0, y = 0, z = 0;
-    pointLight.lookupValue("x", x);
-    pointLight.lookupValue("y", y);
-    pointLight.lookupValue("z", z);
-    // myLight->setValues(x, y, z);
-    std::cout << "Point Light " << i+1 << ": Position(" << x << ", " << y << ", " << z << ")" << std::endl;
-    if (pointLight.getLength() == 0) {
-        std::cout << "No lights found" << std::endl;
-        return nullptr;
-    }
-    return myLight;
-}
-*/
-
 std::shared_ptr<DirectionalLight> getDirectionalFromLights(const libconfig::Setting& pointLight)
 {
     std::shared_ptr<DirectionalLight> myLight = std::make_unique<DirectionalLight>();
@@ -201,7 +175,8 @@ int check_and_parse::parse (std::string scene_file)
         resolution.lookupValue("height", height);
         camera_resolution.push_back(std::make_pair("width", width));
         camera_resolution.push_back(std::make_pair("height", height));
-        // std::cout << "Resolution: " << width << "x" << height << std::endl;
+        if (width < 0 || height < 0)
+            throw RaytracerException("Invalid camera resolution", "check_and_parse");
             // Camera Pos //
         const libconfig::Setting& position = camera.lookup("position");
         int x = 0, y = 0, z = 0;
