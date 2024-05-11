@@ -21,6 +21,24 @@ Raytracer::Raytracer(std::string _file, check_and_parse &parse) : file(_file), _
     //     std::cout << "Modified" << std::endl;
 }
 
+Color Raytracer::ray_ambient(const Ray& r)
+{
+    Intersection intersection;
+    Color final_color(0, 0, 0);
+
+    bool found_intersection = findClosestIntersectionAmong(r, intersection, sphereManager, cylinderManager, coneManager, planeManager);
+
+    if (found_intersection) {
+        return intersection.getColor() / 255 * ambientIntensity;
+    } else {
+        Vector unit_direction = unit_vector(r.direction());
+        double t = 0.5 * (unit_direction.y + 1.0);
+        final_color += (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
+    }
+
+    return final_color;
+}
+
 Color Raytracer::ray_color(const Ray& r)
 {
     Intersection intersection;
@@ -79,6 +97,11 @@ void Raytracer::run()
     std::vector<std::pair<std::string, std::shared_ptr<Primitive>>> primitiveVector = _parse.getPrimitivesVector();
     bool save = true;
     std::vector<std::shared_ptr<DirectionalLight>> directionalVector = _parse.getDirectionalVector();
+    if (_parse.getAmbient() == "YES")
+        ambientLight = true;
+    else
+        ambientLight = false;
+    ambientIntensity = _parse.getAmbientIntensity();
 
     for (size_t i = 0; i < directionalVector.size(); i++)
         directional_lights.push_back(Point(directionalVector[i]->getX(), directionalVector[i]->getY(), directionalVector[i]->getZ()));

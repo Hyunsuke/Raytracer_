@@ -25,7 +25,14 @@ class check_and_parse {
         std::vector<std::pair<std::string, int>> getCameraResolution() { return camera_resolution;}
         std::vector<std::pair<std::string, int>> getCameraRotation() { return camera_rotation;}
         int getIntensity() { return directional_intensity; }
-        double getAmbient() { return ambient_light; }
+        std::string getAmbient() { return ambient_light; }
+        double getAmbientIntensity() {
+            if (ambient_intensity < 0)
+                return 0;
+            if (ambient_intensity > 1)
+                return 1;
+            return ambient_intensity; 
+            }
 
     private:
         std::vector<std::pair<std::string, std::shared_ptr<Primitive>>> primitivesVector;
@@ -36,7 +43,8 @@ class check_and_parse {
         DirectionalLight _light;
         std::vector<std::shared_ptr<DirectionalLight>> directionalVector;
         int camera_fov = 0;
-        int ambient_light = 0;
+        std::string ambient_light = "NO";
+        double ambient_intensity = 1;
         int directional_intensity = 0;
 };
 

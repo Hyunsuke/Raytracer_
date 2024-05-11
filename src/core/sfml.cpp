@@ -17,7 +17,11 @@ void Raytracer::renderSection(int startRow, int endRow, Vector pixel00_loc, Vect
             Vector ray_direction = pixel_center - Camera;
             Ray r(Camera, ray_direction);
 
-            Color pixel_color = ray_color(r);
+            Color pixel_color;
+            if (!ambientLight)
+                pixel_color = ray_color(r);
+            else
+                pixel_color = ray_ambient(r);
             image[j][i] = pixel_color;
         }
     }

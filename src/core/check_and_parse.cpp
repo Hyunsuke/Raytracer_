@@ -264,9 +264,15 @@ int check_and_parse::parse (std::string scene_file)
 
         // Lights
         const libconfig::Setting& lights = cfg.lookup("lights");
-        int ambient = 0;
+        std::string ambient = "NO";
         lights.lookupValue("ambient", ambient);
+        if (ambient != "YES")
+            ambient = "NO";
         ambient_light = ambient;
+
+        double intensity = 0.0;
+        lights.lookupValue("ambient_intensity", intensity);
+        ambient_intensity = intensity;
 
         const libconfig::Setting& pointLights = lights.lookup("directional");
         if (lights.exists("directional")) {

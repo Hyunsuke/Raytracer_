@@ -61,10 +61,11 @@ class Raytracer {
         PrimitiveManager<Cone> coneManager;
 
         std::vector<Point> directional_lights;
-        int lightIntensity = 0;
-        int ambientLight = 0;
+        bool ambientLight = false;
+        double ambientIntensity = 1.0;
 
         Color ray_color(const Ray &r);
+        Color ray_ambient(const Ray &r);
         sf::VertexArray conver_map();
         sf::VertexArray create_map();
         void renderSection(int startRow, int endRow, Vector pixel00_loc, Vector pixel_delta_u, Vector pixel_delta_v);
