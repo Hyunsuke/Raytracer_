@@ -110,6 +110,7 @@ void Raytracer::run()
     Camera.Set_Y(getCameraInfos(_parse.getCameraPos(), "y"));
     Camera.Set_Z(getCameraInfos(_parse.getCameraPos(), "z"));
     Observer observer(_window, vertices, Camera);
+    vertices = create_map();
 
     while (this->_window.isOpen()) {
         if (observer.WindowLoop())
