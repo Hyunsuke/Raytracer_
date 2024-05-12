@@ -39,8 +39,17 @@ Color Raytracer::ray_ambient(const Ray& r)
     return final_color;
 }
 
+double Intersection::getDistance() const {
+    return t;
+}
+
+Vector reflect(const Vector& incident, const Vector& normal) {
+    return incident - 2 * dot(incident, normal) * normal;
+}
+
 Color Raytracer::ray_color(const Ray& r)
 {
+    double shadowIntensity = 1;
     Intersection intersection;
     Color final_color(0, 0, 0);
 
@@ -49,10 +58,32 @@ Color Raytracer::ray_color(const Ray& r)
 
         if (found_intersection) {
             Vector light_direction = unit_vector(lightPosition - intersection.getPosition());
-            double cos_theta = dot(intersection.getNormal(), light_direction);
-            cos_theta = std::max(0.0, cos_theta);
-            Color shaded_color = intersection.getColor() * (cos_theta / 255);
-            final_color += shaded_color;
+            Vector offset = intersection.getNormal() * 0.0001;
+            Ray shadow_ray(intersection.getPosition() + offset, light_direction);
+            Intersection shadow_intersection;
+
+            if (findClosestIntersectionAmong(shadow_ray, shadow_intersection, sphereManager, cylinderManager, coneManager, planeManager) || shadow_intersection.getDistance() > (lightPosition - intersection.getPosition()).length()) {
+                if (dot(light_direction, intersection.getNormal()) >= 0) {
+                    double cos_theta = dot(intersection.getNormal(), light_direction);
+                    cos_theta = std::max(0.0, cos_theta);
+                    Color shaded_color = intersection.getColor() * (cos_theta / 255);
+                    final_color += shaded_color * shadowIntensity;
+                }
+            } else {
+                if (findClosestIntersectionAmong(r, intersection, sphereManager, cylinderManager, coneManager)) {
+                // No shadow, add reflection for the plane
+                    Vector light_direction = unit_vector(lightPosition - intersection.getPosition());
+                    double cos_theta = dot(intersection.getNormal(), light_direction);
+                    cos_theta = std::max(0.0, cos_theta);
+                    Color shaded_color = intersection.getColor() * (cos_theta / 255);
+                    final_color += shaded_color;
+                } else {
+                Vector reflection_direction = reflect(r.direction(), intersection.getNormal());
+                Ray reflection_ray(intersection.getPosition() + offset, reflection_direction);
+                Color reflected_color = ray_color(reflection_ray); // Recursive calculation for reflected color
+                final_color += reflected_color;
+                }
+            }
         } else {
             Vector unit_direction = unit_vector(r.direction());
             double t = 0.5 * (unit_direction.y + 1.0);
@@ -63,6 +94,7 @@ Color Raytracer::ray_color(const Ray& r)
     final_color /= directional_lights.size();
     return final_color;
 }
+
 
 int getCameraInfos(std::vector<std::pair<std::string, int>> camera_info, std::string key)
 {

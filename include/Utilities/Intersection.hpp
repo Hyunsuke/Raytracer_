@@ -27,6 +27,7 @@ public:
     const Point& getPosition() const { return position; }
     const Vector& getNormal() const { return normal; }
     const Color& getColor() const { return color; }
+    double getDistance() const;
 
     void setT(double t_val) { t = t_val; }
     void setPosition(const Point& pos) { position = pos; }
