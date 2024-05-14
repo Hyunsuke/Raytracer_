@@ -316,7 +316,7 @@ check_and_parse::check_and_parse(int ac, std::string filename)
     }
     if (ac == 2 && std::string(filename) == "--help") {
         print_usage();
-        exit(0);
+        std::exit(0);
     }
     if (parse(filename) == 1) {
         throw RaytracerException("Error while parsing the scene file", "check_and_parse");
