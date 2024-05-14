@@ -78,10 +78,10 @@ Color Raytracer::ray_color(const Ray& r)
                     Color shaded_color = intersection.getColor() * (cos_theta / 255);
                     final_color += shaded_color;
                 } else {
-                Vector reflection_direction = reflect(r.direction(), intersection.getNormal());
-                Ray reflection_ray(intersection.getPosition() + offset, reflection_direction);
-                Color reflected_color = ray_color(reflection_ray); // Recursive calculation for reflected color
-                final_color += reflected_color;
+                    Vector reflection_direction = reflect(r.direction(), intersection.getNormal());
+                    Ray reflection_ray(intersection.getPosition() + offset, reflection_direction);
+                    Color reflected_color = ray_color(reflection_ray); // Recursive calculation for reflected color
+                    final_color += reflected_color;
                 }
             }
         } else {
